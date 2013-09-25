@@ -1,0 +1,21 @@
+html, body { margin:0; padding:0; position: relative}
+
+#demoCanvas {
+	border: 1px solid #000;
+}
+
+.button {
+	
+	
+	width: 250px;
+	height: 25px;
+	background-color: #5fd644;
+	cursor: pointer;
+	text-align: center;
+}
+#debug{
+margin: 0px;
+padding: 0px;
+"clear:both;
+float:right;
+}
