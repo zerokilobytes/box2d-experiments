@@ -11,9 +11,9 @@ var EntityBody = function(world, postion, sizeVector, scale) {
 EntityBody.prototype = {
     init: function() {
         var birdFixture = new b2FixtureDef;
-        birdFixture.density = 1;
+        birdFixture.density = 1.0;
         birdFixture.friction = 0.5;
-        birdFixture.restitution = 0.5;
+        birdFixture.restitution = 0.3;
         birdFixture.shape = new b2CircleShape(this.sizeVector.x / this.scale);
         var birdBodyDef = new b2BodyDef;
         birdBodyDef.type = b2Body.b2_dynamicBody;
