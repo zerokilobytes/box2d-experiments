@@ -15,6 +15,8 @@ Twitter.prototype = {
         this.skin = this.createSkin(Resource.images['twitter'], positionVector, this.bodyVector);
         this.body = this.createBody(positionVector, this.settings.scale);
         this.stage.addChild(this.skin.getBitmap());
+        
+        Entity.prototype.spawn.call(this);
     },
     update: function() {
         Entity.prototype.update.call(this);

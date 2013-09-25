@@ -18,7 +18,7 @@ EntitySkin.prototype = {
         this.bitmap.regX = this.centerVector.x;
         this.bitmap.regY = this.centerVector.y;
         this.bitmap.snapToPixel = true;
-        this.bitmap.mouseEnabled = false;
+        this.bitmap.mouseEnabled = true;
 
         //Scale Image
         this.bitmap.scaleX = this.scaleVector.x;

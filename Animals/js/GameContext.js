@@ -7,8 +7,9 @@ var GameContext = function(settings) {
 
 GameContext.prototype = {
     init: function() {
-        this.gameCanvas = this.createConvas('$gameCanvas', this.settings.screeSize.width, this.settings.screeSize.height);
         this.debugCanvas = this.createConvas('$debugCanvas', this.settings.screeSize.width, this.settings.screeSize.height);
+        this.gameCanvas = this.createConvas('$gameCanvas', this.settings.screeSize.width, this.settings.screeSize.height);
+
         this.debugCanvas.style.display = this.debugMode ? '' : 'none';
 
         //Get Context
@@ -18,6 +19,7 @@ GameContext.prototype = {
         //Setup stage
         this.stage = new createjs.Stage(this.gameCanvas);
         this.stage.snapPixelsEnabled = true;
+        this.stage.enableMouseOver(50);
 
         //Create world
         this.world = new b2World(new b2Vec2(0, 9.81), true);
@@ -67,4 +69,29 @@ GameContext.prototype = {
         debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
         this.world.SetDebugDraw(debugDraw);
     },
+    addArrow: function() {
+        var angle = Math.atan2(mouseY - 450, mouseX);
+        var vertices = [];
+        vertices.push(new b2Vec2(-1.4, 0));
+        vertices.push(new b2Vec2(0, -0.1));
+        vertices.push(new b2Vec2(0.6, 0));
+        vertices.push(new b2Vec2(0, 0.1));
+        
+        var bodyDef = new b2BodyDef();
+        bodyDef.position.Set(0, 450 / worldScale);
+        bodyDef.type = b2Body.b2_dynamicBody;
+        bodyDef.userData = "arrow";
+        var polygonShape = new b2PolygonShape();
+        polygonShape.SetAsVector(vertices, 4);
+        var fixtureDef = new b2FixtureDef();
+        fixtureDef.shape = polygonShape;
+        fixtureDef.density = 1;
+        fixtureDef.friction = 0.5;
+        fixtureDef.restitution = 0.5;
+        var body = world.CreateBody(bodyDef);
+        body.CreateFixture(fixtureDef);
+        body.SetLinearVelocity(new b2Vec2(20 * Math.cos(angle), 20 * Math.sin(angle)));
+        body.SetAngle(angle);
+        arrowVector.push(body);
+    }
 };
