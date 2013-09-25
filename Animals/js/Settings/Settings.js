@@ -1,11 +1,7 @@
-var Settings = function(info){
+var Settings = function(info) {
     this.scale = info.scale;
-	this.screeSize = info.screeSize;
+    this.screeSize = info.screeSize;
 };
 
-Settings.prototype ={
-    
+Settings.prototype = {
 };
-
-
-

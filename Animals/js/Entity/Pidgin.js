@@ -6,6 +6,7 @@ Pidgin.prototype = {
     init: function() {
         this.bodyVector = new Vector2D(32, 32);
         Entity.prototype.init.call(this);
+        this.scaleVector = new Vector2D(0.75, 0.75);
     },
     spawn: function(context, positionVector) {
         this.stage = context.stage;

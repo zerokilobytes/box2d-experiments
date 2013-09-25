@@ -40,6 +40,6 @@ $(document).ready(function() {
     init();
 
     $('#debug').on('click', function() {
-        gameContext.showDebug();
+        gameContext.toggleDebug();
     });
 });
