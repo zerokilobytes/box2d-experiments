@@ -24,9 +24,9 @@ function init() {
         var bird2 = new BlueBird();
         var bird3 = new Pidgin();
 
-        gameContext.addEntity(bird1);
-        gameContext.addEntity(bird2);
-        gameContext.addEntity(bird3);
+        //gameContext.addEntity(bird1);
+        //gameContext.addEntity(bird2);
+        //gameContext.addEntity(bird3);
 
         createjs.Ticker.setFPS(60);
         createjs.Ticker.useRAF = true;
