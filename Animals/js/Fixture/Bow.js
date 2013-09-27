@@ -71,7 +71,7 @@ Bow.prototype = {
         var angleRadian = Math.atan2(position.y - this.bowCenter.y, position.x - this.bowCenter.x);
         var angle = normalizeAngle((angleRadian * 180 / Math.PI)); //convert to degrees , the 90 is to have it point to the mouse
         this.rotation = angle;
-        console.log(angle + " > " + (angleRadian * 180 / Math.PI ));
+        //console.log(angle + " > " + (angleRadian * 180 / Math.PI ));
         
         this.skin.getBitmap().rotation = angleRadian * 180 / Math.PI - 90;
     },

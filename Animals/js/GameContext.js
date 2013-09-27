@@ -33,7 +33,7 @@ GameContext.prototype = {
         this.addDebug();
         this.gameCanvas.addEventListener("mousedown", function(evt) {
             _this.mouseDown = true;
-            _this.addArrow(evt.x, evt.y, _this.bow.getPosition());
+            _this.addArrow(new Vector2D(evt.x, evt.y), _this.bow.getPosition());
 
         });
 
@@ -167,18 +167,15 @@ GameContext.prototype = {
         }
 
     },
-    addArrow: function(mouseX, mouseY, bowPosition) {
-        mouseX = this.bow.getPosition().x;
-        mouseY = this.bow.getPosition().y;
-        
-        var angle = this.bow.getRotation(); //Math.atan2(mouseY - bowPosition.y, mouseX);
+    addArrow: function(mousePosition, bowPosition) {
+        var angle = Math.atan2(mousePosition.y - bowPosition.y, mousePosition.x - bowPosition.x);
         var vertices = [];
         vertices.push(new b2Vec2(-1.4, 0));
         vertices.push(new b2Vec2(0, -0.1));
         vertices.push(new b2Vec2(0.6, 0));
         vertices.push(new b2Vec2(0, 0.1));
         var bodyDef = new b2BodyDef();
-        bodyDef.position.Set(mouseX / this.settings.scale, mouseY / this.settings.scale);
+        bodyDef.position.Set(mousePosition.x / this.settings.scale, mousePosition.y / this.settings.scale);
         bodyDef.type = b2Body.b2_dynamicBody;
         bodyDef.userData = {name: "arrow", freeFlight: false};
         var polygonShape = new b2PolygonShape();
@@ -190,7 +187,9 @@ GameContext.prototype = {
         fixtureDef.restitution = 0.1;
         var body = this.world.CreateBody(bodyDef);
         body.CreateFixture(fixtureDef);
-        body.SetLinearVelocity(new b2Vec2(20 * Math.cos(angle), 20 * Math.sin(angle)));
+        
+        //velocity must be applied in the opposite direction
+        body.SetLinearVelocity(new b2Vec2(-20 * Math.cos(angle), -20 * Math.sin(angle)));
         body.SetAngle(angle);
         this.arrowVector.push(body);
         for (var i = 0; i < this.arrowVector.length; i++) {
