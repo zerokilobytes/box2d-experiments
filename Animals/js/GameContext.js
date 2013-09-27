@@ -25,22 +25,22 @@ GameContext.prototype = {
         //createjs.Touch.enable(stage);
 
 
-        var bow = new Bow(this);
-        bow.spawn(new Vector2D(100, 400));
+        this.bow = new Bow(this);
+        this.bow.spawn(new Vector2D(100, 400));
 
         //Create world
         this.world = new b2World(new b2Vec2(0, 10), true);
         this.addDebug();
         this.gameCanvas.addEventListener("mousedown", function(evt) {
             _this.mouseDown = true;
-            _this.addArrow(evt.x, evt.y, bow.getPosition());
+            _this.addArrow(evt.x, evt.y, _this.bow.getPosition());
 
         });
 
         this.gameCanvas.addEventListener("mousemove", function(evt) {
             if (_this.mouseDown === true) {
-               // console.log(evt.x);
-                bow.update(new Vector2D(evt.x, evt.y));
+                // console.log(evt.x);
+                _this.bow.update(new Vector2D(evt.x, evt.y));
             }
 
         });
@@ -168,8 +168,10 @@ GameContext.prototype = {
 
     },
     addArrow: function(mouseX, mouseY, bowPosition) {
-
-        var angle = Math.atan2(mouseY - bowPosition.y, mouseX);
+        mouseX = this.bow.getPosition().x;
+        mouseY = this.bow.getPosition().y;
+        
+        var angle = this.bow.getRotation(); //Math.atan2(mouseY - bowPosition.y, mouseX);
         var vertices = [];
         vertices.push(new b2Vec2(-1.4, 0));
         vertices.push(new b2Vec2(0, -0.1));

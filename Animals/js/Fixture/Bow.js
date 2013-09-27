@@ -9,6 +9,8 @@ var Bow = function(context) {
 Bow.prototype = {
     init: function() {
         this.bowCenter = null;
+        this.bodyVector = new Vector2D(310, 73);
+        this.scaleVector = new Vector2D(0.5, 0.5);
     },
     spawn: function(position) {
         this.bowCenter = position;
@@ -21,6 +23,8 @@ Bow.prototype = {
         shape.alphs = 0.5;
         this.stage.addChild(shape);
 
+        this.skin = this.createSkin(Resource.images['bow'], position, new Vector2D(this.bodyVector.x / 2, this.bodyVector.y / 2));
+        this.stage.addChild(this.skin.getBitmap());
         /* var worldScale = this.settings.scale;
          
          var ballFixDef = new b2FixtureDef();
@@ -52,25 +56,27 @@ Bow.prototype = {
          g.endFill();
          shape.alphs = 0.5;
          this.stage.addChild(shape);*/
-        var shape = new createjs.Shape();
+        //var shape = new createjs.Shape();
 
-        var g = shape.graphics;
+        //var g = shape.graphics;
         //g.beginFill("#0000FF");
-        g.setStrokeStyle(4).beginStroke("#0000FF");
-        g.moveTo(position.x, position.y);
-        g.lineTo(this.bowCenter.x, this.bowCenter.y);
-
-
-
-        g.endFill();
-        this.stage.addChild(shape);
+        //g.setStrokeStyle(4).beginStroke("#0000FF");
+        //g.moveTo(position.x, position.y);
+        //g.lineTo(this.bowCenter.x, this.bowCenter.y);
+        //g.endFill();
+        //this.stage.addChild(shape);
 
 
         var angleRadian = Math.atan2(position.y - this.bowCenter.y, position.x - this.bowCenter.x);
-        
-
         var angle = angleRadian * 180 / Math.PI;// - 90; //convert to degrees , the 90 is to have it point to the mouse
-
         console.log(angle);
+        this.skin.getBitmap().rotation = angle;
+    },
+    createSkin: function(image, positionVector, centerVector) {
+        var skin = new EntitySkin(image, positionVector, centerVector, this.scaleVector);
+        return skin;
+    },
+    getRotation: function() {
+        return this.skin.getBitmap().rotation;
     }
 };

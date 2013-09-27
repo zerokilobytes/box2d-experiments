@@ -4,7 +4,8 @@ var images = {
     bird: 'images/bird.png',
     pidgin: 'images/pidgin.png',
     blue_bird: 'images/blue_bird.png',
-    twitter: 'images/twitter.png'
+    twitter: 'images/twitter.png',
+    bow: 'images/Fixture/bow.png'
 };
 
 function init() {
@@ -27,8 +28,8 @@ function init() {
         //gameContext.addEntity(bird1);
         //gameContext.addEntity(bird2);
         //gameContext.addEntity(bird3);
-        
-       
+
+
 
         createjs.Ticker.setFPS(60);
         createjs.Ticker.useRAF = true;
