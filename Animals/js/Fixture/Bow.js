@@ -2,7 +2,7 @@ var Bow = function(context) {
     this.settings = context.settings;
     this.world = context.world;
     this.stage = context.stage;
-
+    this.rotation = 0;
     this.init();
 };
 
@@ -68,15 +68,16 @@ Bow.prototype = {
 
 
         var angleRadian = Math.atan2(position.y - this.bowCenter.y, position.x - this.bowCenter.x);
-        var angle = angleRadian * 180 / Math.PI;// - 90; //convert to degrees , the 90 is to have it point to the mouse
+        var angle = (angleRadian * 180 / Math.PI); //convert to degrees , the 90 is to have it point to the mouse
+        this.rotation = angle;
         console.log(angle);
-        this.skin.getBitmap().rotation = angle;
+        this.skin.getBitmap().rotation = angleRadian * 180 / Math.PI - 90;
     },
     createSkin: function(image, positionVector, centerVector) {
         var skin = new EntitySkin(image, positionVector, centerVector, this.scaleVector);
         return skin;
     },
     getRotation: function() {
-        return this.skin.getBitmap().rotation;
+        return this.rotation;
     }
 };
