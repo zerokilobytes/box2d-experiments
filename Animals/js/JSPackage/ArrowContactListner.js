@@ -21,7 +21,7 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
 
         if (objA === undefined || objB === undefined)
             return;
-        
+
         if (objA === null || objB === null)
             return;
 
@@ -50,7 +50,6 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
         }
         if (objA.name === "food" && objB.name === "arrow") {
             contactPoint = contact.GetManifold().m_points[0].m_localPoint;
-             console.log(contactPoint.x * 10);
             if (!objB.freeFlight && Math.round(contactPoint.x * 10) === 6) {
                 weldJointDef = new b2WeldJointDef();
                 weldJointDef.Initialize(bodyB, bodyA, bodyA.GetWorldCenter());
@@ -58,15 +57,31 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
             }
         }
         if (objB.name === "food" && objA.name === "arrow") {
-           
+
             contactPoint = contact.GetManifold().m_points[0].m_localPoint;
-             console.log(contactPoint.x * 10);
             if (!objA.freeFlight && Math.round(contactPoint.x * 10) === 6) {
                 weldJointDef = new b2WeldJointDef();
                 weldJointDef.Initialize(bodyA, bodyB, bodyB.GetWorldCenter());
                 bodyA.GetWorld().CreateJoint(weldJointDef);
             }
         }
+
+        if ((objB.name === "arrow" && objA.name === "rope") ||
+                (objB.name === "rope" && objA.name === "arrow")) {
+            var objectToDestroy = null;
+            if (objB.name === "arrow") {
+                objectToDestroy = bodyA;
+            }
+            else {
+                objectToDestroy = bodyB;
+            }
+            objectToDestroy.destroyed = true;
+            //gameContext.push(objectToDestroy);
+            //objectToDestroy.GetWorld().DestroyBody(objectToDestroy);
+            //console.log(objectToDestroy);
+        }
+
+
         if (objB.name === "arrow") {
             objB.freeFlight = true;
         }

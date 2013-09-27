@@ -7,6 +7,7 @@ var GameContext = function(settings) {
     this.debugMode = true;
     this.arrowVector = [];
     this.mouseDown = false;
+    this.bodiesToRemove = [];
     this.init();
 };
 GameContext.prototype = {
@@ -73,6 +74,11 @@ GameContext.prototype = {
         this.stage.update();
         this.world.m_debugDraw.m_sprite.graphics.clear();
         this.world.DrawDebugData();
+
+
+        for (var i = this.bodiesToRemove.length - 1; i >= 0; i--) {
+            this.world.DestroyBody(this.bodiesToRemove[i]);
+        }
     },
     createConvas: function(name, width, height) {
         var canvas = document.createElement('canvas');
@@ -187,7 +193,7 @@ GameContext.prototype = {
         fixtureDef.restitution = 0.1;
         var body = this.world.CreateBody(bodyDef);
         body.CreateFixture(fixtureDef);
-        
+
         //velocity must be applied in the opposite direction
         body.SetLinearVelocity(new b2Vec2(-20 * Math.cos(angle), -20 * Math.sin(angle)));
         body.SetAngle(angle);
