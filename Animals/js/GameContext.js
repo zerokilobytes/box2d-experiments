@@ -6,6 +6,7 @@ var GameContext = function(settings) {
     this.integrator = null;
     this.debugMode = true;
     this.arrowVector = [];
+    this.mouseDown = false;
     this.init();
 };
 GameContext.prototype = {
@@ -23,12 +24,28 @@ GameContext.prototype = {
         this.stage.enableMouseOver(50);
         //createjs.Touch.enable(stage);
 
+
+        var bow = new Bow(this);
+        bow.spawn(new Vector2D(100, 400));
+
         //Create world
         this.world = new b2World(new b2Vec2(0, 10), true);
         this.addDebug();
         this.gameCanvas.addEventListener("mousedown", function(evt) {
-            _this.addArrow(evt.x, evt.y);
+            _this.mouseDown = true;
+            _this.addArrow(evt.x, evt.y, bow.getPosition());
 
+        });
+
+        this.gameCanvas.addEventListener("mousemove", function(evt) {
+            if (_this.mouseDown === true) {
+               // console.log(evt.x);
+                bow.update(new Vector2D(evt.x, evt.y));
+            }
+
+        });
+        this.gameCanvas.addEventListener("mouseup", function(evt) {
+            _this.mouseDown = false;
         });
 
 
@@ -39,6 +56,9 @@ GameContext.prototype = {
 
         var pendulum2 = new Pendulum(this);
         pendulum2.spawn(new Vector2D(520, 30));
+
+
+
     },
     start: function() {
         this.integrator = new Integrator(this);
@@ -147,9 +167,9 @@ GameContext.prototype = {
         }
 
     },
-    addArrow: function(mouseX, mouseY) {
+    addArrow: function(mouseX, mouseY, bowPosition) {
 
-        var angle = Math.atan2(mouseY - this.settings.screeSize.height, mouseX);
+        var angle = Math.atan2(mouseY - bowPosition.y, mouseX);
         var vertices = [];
         vertices.push(new b2Vec2(-1.4, 0));
         vertices.push(new b2Vec2(0, -0.1));

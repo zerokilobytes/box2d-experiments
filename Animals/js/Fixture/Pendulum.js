@@ -5,7 +5,6 @@ var Pendulum = function(context) {
     this.init();
 };
 
-
 Pendulum.prototype = {
     init: function() {
         this.steelBall;
