@@ -19,8 +19,14 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
         var objA = bodyA.GetUserData();
         var objB = bodyB.GetUserData();
 
+        if (objA === undefined || objB === undefined)
+            return;
+        
+        if (objA === null || objB === null)
+            return;
+
         if (objA.name === "arrow" && objB.name === "arrow") {
-            console.log(contact);
+            //console.log(contact);
             for (var j = bodyA.GetJointList(); j; j = j.next) {
                 bodyA.GetWorld().DestroyJoint(j.joint);
             }
@@ -42,16 +48,19 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
                 bodyA.GetWorld().CreateJoint(weldJointDef);
             }
         }
-        if (objA.name === "crate" && objB.name === "arrow") {
+        if (objA.name === "food" && objB.name === "arrow") {
             contactPoint = contact.GetManifold().m_points[0].m_localPoint;
+             console.log(contactPoint.x * 10);
             if (!objB.freeFlight && Math.round(contactPoint.x * 10) === 6) {
                 weldJointDef = new b2WeldJointDef();
                 weldJointDef.Initialize(bodyB, bodyA, bodyA.GetWorldCenter());
                 bodyB.GetWorld().CreateJoint(weldJointDef);
             }
         }
-        if (objB.name === "crate" && objA.name === "arrow") {
+        if (objB.name === "food" && objA.name === "arrow") {
+           
             contactPoint = contact.GetManifold().m_points[0].m_localPoint;
+             console.log(contactPoint.x * 10);
             if (!objA.freeFlight && Math.round(contactPoint.x * 10) === 6) {
                 weldJointDef = new b2WeldJointDef();
                 weldJointDef.Initialize(bodyA, bodyB, bodyB.GetWorldCenter());

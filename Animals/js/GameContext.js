@@ -24,14 +24,21 @@ GameContext.prototype = {
         //createjs.Touch.enable(stage);
 
         //Create world
-        this.world = new b2World(new b2Vec2(0, 9.81), true);
+        this.world = new b2World(new b2Vec2(0, 10), true);
         this.addDebug();
         this.gameCanvas.addEventListener("mousedown", function(evt) {
             _this.addArrow(evt.x, evt.y);
+
         });
-        
-   
+
+
         this.world.SetContactListener(ArrowContactListner);
+
+        var pendulum1 = new Pendulum(this);
+        pendulum1.spawn(new Vector2D(260, 30));
+
+        var pendulum2 = new Pendulum(this);
+        pendulum2.spawn(new Vector2D(520, 30));
     },
     start: function() {
         this.integrator = new Integrator(this);
@@ -113,6 +120,32 @@ GameContext.prototype = {
             }
         }
 
+        for (var i = this.arrowVector.length - 1; i >= 0; i--) {
+            var body = this.arrowVector[i];
+            if (body.GetType() === b2Body.b2_dynamicBody) {
+                if (!body.GetUserData().freeFlight) {
+                    var flyingAngle = Math.atan2(body.GetLinearVelocity().y, body.GetLinearVelocity().x);
+                    body.SetAngle(flyingAngle);
+                }
+            }
+            else {
+                arrowVector.splice(i, 1);
+                body.SetBullet(false);
+                body.GetUserData().follow = false;
+            }
+            if (body.GetUserData().follow) {
+                var posX = body.GetPosition().x * worldScale;
+                posX = stage.stageWidth / 2 - posX;
+                if (posX > 0) {
+                    posX = 0;
+                }
+                if (posX < -640) {
+                    posX = -640;
+                }
+                x = posX;
+            }
+        }
+
     },
     addArrow: function(mouseX, mouseY) {
 
@@ -125,7 +158,7 @@ GameContext.prototype = {
         var bodyDef = new b2BodyDef();
         bodyDef.position.Set(mouseX / this.settings.scale, mouseY / this.settings.scale);
         bodyDef.type = b2Body.b2_dynamicBody;
-        bodyDef.userData = {name: "arrow"};
+        bodyDef.userData = {name: "arrow", freeFlight: false};
         var polygonShape = new b2PolygonShape();
         polygonShape.SetAsVector(vertices, 4);
         var fixtureDef = new b2FixtureDef();

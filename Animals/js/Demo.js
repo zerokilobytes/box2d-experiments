@@ -27,6 +27,8 @@ function init() {
         //gameContext.addEntity(bird1);
         //gameContext.addEntity(bird2);
         //gameContext.addEntity(bird3);
+        
+       
 
         createjs.Ticker.setFPS(60);
         createjs.Ticker.useRAF = true;
