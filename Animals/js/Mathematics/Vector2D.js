@@ -27,8 +27,20 @@ function toDegree(radians) {
     return  radians * (180 / Math.PI);
 }
 
-function rotate(degrees) {
-    var orientation = degrees % 360;
+function normalizeAngle(angle)
+{
     
-    return orientation;
+    if (angle < 0) 
+        angle += 360;
+   return angle;
+    /*
+     angle %= 360;
+     if (angle < -179)
+     angle += 360;
+     else if (angle > 180)
+     angle -= 360;
+     
+     //return Math.atan2(Math.sin(angle * Math.PI/180.0), Math.cos(angle * Math.PI/180.0)) * 180.0/Math.PI;
+     return Math.asin(Math.sin(angle * Math.PI / 180.0)) * 180.0 / Math.PI;
+     */
 }
