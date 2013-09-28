@@ -69,16 +69,19 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
         if ((objB.name === "arrow" && objA.name === "rope") ||
                 (objB.name === "rope" && objA.name === "arrow")) {
             var objectToDestroy = null;
+			var arrow = null;
             if (objB.name === "arrow") {
                 objectToDestroy = bodyA;
+				arrow = bodyB;
             }
             else {
                 objectToDestroy = bodyB;
+				arrow = bodyA;
             }
-            objectToDestroy.destroyed = true;
-            //gameContext.push(objectToDestroy);
-            //objectToDestroy.GetWorld().DestroyBody(objectToDestroy);
-            //console.log(objectToDestroy);
+			if(!arrow.hasCollided){
+				Undertaker.add(objectToDestroy, objectToDestroy.GetWorld());
+				arrow.hasCollided = true;
+			}
         }
 
 

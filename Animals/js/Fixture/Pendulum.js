@@ -20,9 +20,9 @@ Pendulum.prototype = {
     spawn: function(position) {
         var worldScale = this.settings.scale;
         // number of links forming the rope
-        var links = 3;
+        var links = 6;
         // according to the number of links, I am setting the length of a single chain piace
-        var chainLength = 70 / links;
+        var chainLength = 80 / links;
 
         // ceiling polygon shape
         var polygonShape = new b2PolygonShape();

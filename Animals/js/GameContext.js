@@ -75,10 +75,7 @@ GameContext.prototype = {
         this.world.m_debugDraw.m_sprite.graphics.clear();
         this.world.DrawDebugData();
 
-
-        for (var i = this.bodiesToRemove.length - 1; i >= 0; i--) {
-            this.world.DestroyBody(this.bodiesToRemove[i]);
-        }
+		Undertaker.purge();
     },
     createConvas: function(name, width, height) {
         var canvas = document.createElement('canvas');
@@ -183,7 +180,7 @@ GameContext.prototype = {
         var bodyDef = new b2BodyDef();
         bodyDef.position.Set(mousePosition.x / this.settings.scale, mousePosition.y / this.settings.scale);
         bodyDef.type = b2Body.b2_dynamicBody;
-        bodyDef.userData = {name: "arrow", freeFlight: false};
+        bodyDef.userData = {name: "arrow", freeFlight: false,hasCollided:false};
         var polygonShape = new b2PolygonShape();
         polygonShape.SetAsVector(vertices, 4);
         var fixtureDef = new b2FixtureDef();
@@ -195,7 +192,7 @@ GameContext.prototype = {
         body.CreateFixture(fixtureDef);
 
         //velocity must be applied in the opposite direction
-        body.SetLinearVelocity(new b2Vec2(-20 * Math.cos(angle), -20 * Math.sin(angle)));
+        body.SetLinearVelocity(new b2Vec2(-50 * Math.cos(angle), -50 * Math.sin(angle)));
         body.SetAngle(angle);
         this.arrowVector.push(body);
         for (var i = 0; i < this.arrowVector.length; i++) {
