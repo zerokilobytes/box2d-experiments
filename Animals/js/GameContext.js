@@ -26,17 +26,30 @@ GameContext.prototype = {
         //createjs.Touch.enable(stage);
 
 
-        this.bow = new Bow(this);
-        this.bow.spawn(new Vector2D(100, 400));
+        this.stage.onMouseDown = function(evt) {
+
+        };
+
+
+
+        this.stage.addEventListener("stagemousedown", function(event) {
+           // console.log("stagemousedown");
+        });
+        this.stage.addEventListener("stagemouseup", function(event) {
+           // console.log("stagemouseup");
+        });
+        this.stage.addEventListener("stagemousemove", function(event) {
+           // console.log("stagemousemove");
+        });
 
         //Create world
         this.world = new b2World(new b2Vec2(0, 10), true);
-        this.addDebug();
-        this.gameCanvas.addEventListener("mousedown", function(evt) {
-            _this.mouseDown = true;
-            _this.addArrow(new Vector2D(evt.x, evt.y), _this.bow.getPosition());
+                this.addDebug();
+        //this.gameCanvas.addEventListener("mousedown", function(evt) {
+           // _this.mouseDown = true;
+           // _this.addArrow(new Vector2D(evt.x, evt.y), _this.bow.getPosition());
 
-        });
+        //});
 
         this.gameCanvas.addEventListener("mousemove", function(evt) {
             if (_this.mouseDown === true) {
@@ -58,7 +71,8 @@ GameContext.prototype = {
         var pendulum2 = new Pendulum(this);
         pendulum2.spawn(new Vector2D(520, 30));
 
-
+        this.bow = new Bow(this);
+        this.bow.spawn(new Vector2D(100, 400));
 
     },
     start: function() {
@@ -75,7 +89,7 @@ GameContext.prototype = {
         this.world.m_debugDraw.m_sprite.graphics.clear();
         this.world.DrawDebugData();
 
-		Undertaker.purge();
+        Undertaker.purge();
     },
     createConvas: function(name, width, height) {
         var canvas = document.createElement('canvas');
@@ -180,7 +194,7 @@ GameContext.prototype = {
         var bodyDef = new b2BodyDef();
         bodyDef.position.Set(mousePosition.x / this.settings.scale, mousePosition.y / this.settings.scale);
         bodyDef.type = b2Body.b2_dynamicBody;
-        bodyDef.userData = {name: "arrow", freeFlight: false,hasCollided:false};
+        bodyDef.userData = {name: "arrow", freeFlight: false, hasCollided: false};
         var polygonShape = new b2PolygonShape();
         polygonShape.SetAsVector(vertices, 4);
         var fixtureDef = new b2FixtureDef();

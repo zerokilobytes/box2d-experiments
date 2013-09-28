@@ -14,7 +14,7 @@ function init() {
             scale: 60,
             screeSize: {
                 width: 800,
-                height: 600
+                height: 480
             }
         });
 
