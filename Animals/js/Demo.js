@@ -21,9 +21,9 @@ function init() {
         gameContext = new GameContext(settings);
         gameContext.start();
 
-        var bird1 = new Twitter();
-        var bird2 = new BlueBird();
-        var bird3 = new Pidgin();
+        //var bird1 = new Twitter();
+        //var bird2 = new BlueBird();
+        //var bird3 = new Pidgin();
 
         //gameContext.addEntity(bird1);
         //gameContext.addEntity(bird2);

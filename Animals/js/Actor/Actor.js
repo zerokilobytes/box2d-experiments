@@ -1,7 +1,7 @@
-var Entity = function() {
+var Actor = function() {
     throw new Error("Abstract Entity object cannot be instantiated");
 };
-Entity.prototype = {
+Actor.prototype = {
     init: function() {
         this.skin = null;
         this.body = null;
@@ -30,7 +30,7 @@ Entity.prototype = {
         var scaleY = this.bodyVector.y * this.scaleVector.y;
         var bodyVector = new Vector2D(scaleX, scaleY);
 
-        var body = new EntityBody(this.world, postion, bodyVector, scale);
+        var body = new EntityBody(this.context, postion, bodyVector, scale);
         return body;
     }
 };

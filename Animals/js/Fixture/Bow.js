@@ -1,9 +1,6 @@
 var Bow = function(context) {
-    this.settings = context.settings;
-    this.world = context.world;
-    this.stage = context.stage;
     this.context = context;
-    this.rotation = 0;
+    this.rotation = 45;
     this.active = false;
     this.arrowHead = null;
     this.arrowTail = null;
@@ -20,10 +17,10 @@ Bow.prototype = {
         this.bowCenter = position;
 
         this.arrowHead = this.addMarker(position);
-        this.stage.addChild(this.arrowHead);
+        this.context.stage.addChild(this.arrowHead);
 
         this.arrowTail = this.addMarker(position);
-        this.stage.addChild(this.arrowTail);
+        this.context.stage.addChild(this.arrowTail);
         this.context.stage.update();
 
         this.arrowHead.addEventListener("mousedown", function(evt) {
@@ -34,8 +31,10 @@ Bow.prototype = {
                 Resource.images['bow'],
                 position,
                 new Vector2D(this.bodyVector.x / 2, this.bodyVector.y / 2));
+                
+        this.skin.getBitmap().rotation = this.rotation;        
 
-        this.stage.addChild(this.skin.getBitmap());
+        this.context.stage.addChild(this.skin.getBitmap());
 
         var _this = this;
 
@@ -65,7 +64,7 @@ Bow.prototype = {
     },
     update: function(position) {
         var angleRadian = Math.atan2(position.y - this.bowCenter.y, position.x - this.bowCenter.x);
-        var angle = normalizeAngle((angleRadian * 180 / Math.PI));
+        var angle = MathFunc.normalizeAngle((angleRadian * 180 / Math.PI));
         this.rotation = angle;
         this.skin.getBitmap().rotation = angleRadian * 180 / Math.PI - 90;
 
@@ -79,7 +78,7 @@ Bow.prototype = {
         if (distSquarRt > 30) {
             x = this.arrowHead.x + Math.cos(Math.atan2(yDist, xDist)) * -30;
             y = this.arrowHead.y + Math.sin(Math.atan2(yDist, xDist)) * -30;
-            
+
             this.arrowTail.x = x;
             this.arrowTail.y = y;
         }

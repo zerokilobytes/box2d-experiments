@@ -1,6 +1,6 @@
-var EntityBody = function(world, postion, sizeVector, scale) {
-    this.world = world;
-    this.postion = postion;
+var EntityBody = function(context, postion, sizeVector, scale) {
+    this.context = world;
+    this.postion = context;
     this.scale = scale;
     this.sizeVector = sizeVector;
     this.body = null;
@@ -19,7 +19,7 @@ EntityBody.prototype = {
         birdBodyDef.type = b2Body.b2_dynamicBody;
         birdBodyDef.position.x = this.postion.x / this.scale;
         birdBodyDef.position.y = this.postion.y / this.scale;
-        this.body = this.world.CreateBody(birdBodyDef);
+        this.body = this.context.world.CreateBody(birdBodyDef);
         this.body.CreateFixture(birdFixture);
         this.body.SetUserData(this);
     },

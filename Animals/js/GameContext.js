@@ -5,14 +5,12 @@ var GameContext = function(settings) {
     this.settings = settings;
     this.integrator = null;
     this.debugMode = true;
-    this.arrowVector = [];
     this.mouseDown = false;
-    this.bodiesToRemove = [];
+    this.modelManager = null;
     this.init();
 };
 GameContext.prototype = {
     init: function() {
-        var _this = this;
         this.debugCanvas = this.createConvas('$debugCanvas', this.settings.screeSize.width, this.settings.screeSize.height);
         this.gameCanvas = this.createConvas('$gameCanvas', this.settings.screeSize.width, this.settings.screeSize.height);
         this.debugCanvas.style.display = this.debugMode ? '' : 'none';
@@ -25,43 +23,11 @@ GameContext.prototype = {
         this.stage.enableMouseOver(50);
         //createjs.Touch.enable(stage);
 
-
-        this.stage.onMouseDown = function(evt) {
-
-        };
-
-
-
-        this.stage.addEventListener("stagemousedown", function(event) {
-           // console.log("stagemousedown");
-        });
-        this.stage.addEventListener("stagemouseup", function(event) {
-           // console.log("stagemouseup");
-        });
-        this.stage.addEventListener("stagemousemove", function(event) {
-           // console.log("stagemousemove");
-        });
+        this.modelManager = new ModelManager(this);
 
         //Create world
         this.world = new b2World(new b2Vec2(0, 10), true);
-                this.addDebug();
-        //this.gameCanvas.addEventListener("mousedown", function(evt) {
-           // _this.mouseDown = true;
-           // _this.addArrow(new Vector2D(evt.x, evt.y), _this.bow.getPosition());
-
-        //});
-
-        this.gameCanvas.addEventListener("mousemove", function(evt) {
-            if (_this.mouseDown === true) {
-                // console.log(evt.x);
-                _this.bow.update(new Vector2D(evt.x, evt.y));
-            }
-
-        });
-        this.gameCanvas.addEventListener("mouseup", function(evt) {
-            _this.mouseDown = false;
-        });
-
+        this.addDebug();
 
         this.world.SetContactListener(ArrowContactListner);
 
@@ -71,8 +37,11 @@ GameContext.prototype = {
         var pendulum2 = new Pendulum(this);
         pendulum2.spawn(new Vector2D(520, 30));
 
-        this.bow = new Bow(this);
-        this.bow.spawn(new Vector2D(100, 400));
+        var bow = new Bow(this);
+        bow.spawn(new Vector2D(100, 400));
+
+        var bow = new Bow(this);
+        bow.spawn(new Vector2D(700, 200));
 
     },
     start: function() {
@@ -80,14 +49,14 @@ GameContext.prototype = {
         this.integrator.setup();
     },
     update: function() {
-
-        this.integrator.update();
         this.world.Step(this.timeStep, this.velocityIterations, this.positionIterations);
         this.world.ClearForces();
-        this.updateArrow();
-        this.stage.update();
         this.world.m_debugDraw.m_sprite.graphics.clear();
         this.world.DrawDebugData();
+
+        this.integrator.update();
+        this.modelManager.update();
+        this.stage.update();
 
         Undertaker.purge();
     },
@@ -111,12 +80,6 @@ GameContext.prototype = {
         this.debugMode = !this.debugMode;
         this.debugCanvas.style.display = this.debugMode ? '' : 'none';
     },
-    b2Dot: function(a, b) {
-        return a.x * b.x + a.y * b.y;
-    },
-    normalize2: function(b) {
-        return Math.sqrt(b.x * b.x + b.y * b.y);
-    },
     addDebug: function() {
         var debugDraw = new b2DebugDraw();
         debugDraw.SetSprite(debugContext);
@@ -126,91 +89,10 @@ GameContext.prototype = {
         debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
         this.world.SetDebugDraw(debugDraw);
     },
-    updateArrow: function() {
-        var dragConstant = 0.05;
-        //var dampingConstant = 1.5;
-
-
-        var worldScale = this.settings.scale;
-        for (var i = this.arrowVector.length - 1; i >= 0; i--) {
-            var body = this.arrowVector[i];
-            var flightSpeed = this.normalize2(body.GetLinearVelocity());
-            var bodyAngle = body.GetAngle();
-            var pointingDirection = new b2Vec2(Math.cos(bodyAngle), -Math.sin(bodyAngle));
-            var flyingAngle = Math.atan2(body.GetLinearVelocity().y, body.GetLinearVelocity().x);
-            var flightDirection = new b2Vec2(Math.cos(flyingAngle), Math.sin(flyingAngle));
-            var dot = this.b2Dot(flightDirection, pointingDirection);
-            var dragForceMagnitude = (1 - Math.abs(dot)) * flightSpeed * flightSpeed * dragConstant * body.GetMass();
-            var arrowTailPosition = body.GetWorldPoint(new b2Vec2(-1.4, 0));
-            body.ApplyForce(new b2Vec2((dragForceMagnitude * -flightDirection.x), (dragForceMagnitude * -flightDirection.y)), arrowTailPosition);
-            if (body.GetPosition().x * worldScale > 1) {
-                for (var c = body.GetContactList(); c; c = c.next) {
-                    var contact = c.contact;
-                    var fixtureA = contact.GetFixtureA();
-                    var fixtureB = contact.GetFixtureB();
-                    var bodyA = fixtureA.GetBody();
-                    var bodyB = fixtureB.GetBody();
-                    if (bodyA.GetUserData() === "wall" || bodyB.GetUserData() === "wall") {
-                        this.arrowVector.splice(i, 1);
-                    }
-                }
-            }
-        }
-
-        for (var i = this.arrowVector.length - 1; i >= 0; i--) {
-            var body = this.arrowVector[i];
-            if (body.GetType() === b2Body.b2_dynamicBody) {
-                if (!body.GetUserData().freeFlight) {
-                    var flyingAngle = Math.atan2(body.GetLinearVelocity().y, body.GetLinearVelocity().x);
-                    body.SetAngle(flyingAngle);
-                }
-            }
-            else {
-                arrowVector.splice(i, 1);
-                body.SetBullet(false);
-                body.GetUserData().follow = false;
-            }
-            if (body.GetUserData().follow) {
-                var posX = body.GetPosition().x * worldScale;
-                posX = stage.stageWidth / 2 - posX;
-                if (posX > 0) {
-                    posX = 0;
-                }
-                if (posX < -640) {
-                    posX = -640;
-                }
-                x = posX;
-            }
-        }
-
-    },
     addArrow: function(mousePosition, bowPosition) {
-        var angle = Math.atan2(mousePosition.y - bowPosition.y, mousePosition.x - bowPosition.x);
-        var vertices = [];
-        vertices.push(new b2Vec2(-1.4, 0));
-        vertices.push(new b2Vec2(0, -0.1));
-        vertices.push(new b2Vec2(0.6, 0));
-        vertices.push(new b2Vec2(0, 0.1));
-        var bodyDef = new b2BodyDef();
-        bodyDef.position.Set(mousePosition.x / this.settings.scale, mousePosition.y / this.settings.scale);
-        bodyDef.type = b2Body.b2_dynamicBody;
-        bodyDef.userData = {name: "arrow", freeFlight: false, hasCollided: false};
-        var polygonShape = new b2PolygonShape();
-        polygonShape.SetAsVector(vertices, 4);
-        var fixtureDef = new b2FixtureDef();
-        fixtureDef.shape = polygonShape;
-        fixtureDef.density = 1;
-        fixtureDef.friction = 0.5;
-        fixtureDef.restitution = 0.1;
-        var body = this.world.CreateBody(bodyDef);
-        body.CreateFixture(fixtureDef);
+        var arrow = new Arrow(this);
+        arrow.spawn(mousePosition, bowPosition);
 
-        //velocity must be applied in the opposite direction
-        body.SetLinearVelocity(new b2Vec2(-50 * Math.cos(angle), -50 * Math.sin(angle)));
-        body.SetAngle(angle);
-        this.arrowVector.push(body);
-        for (var i = 0; i < this.arrowVector.length; i++) {
-            this.arrowVector[i].GetUserData().follow = false;
-        }
+        this.modelManager.arrowVector.push(arrow);
     }
 };

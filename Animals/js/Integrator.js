@@ -85,8 +85,6 @@ Integrator.prototype = {
         for (var i = 0, l = this.actors.length; i < l; i++) {
             this.actors[i].update();
         }
-
-
     },
     pauseResume: function(p) {
 

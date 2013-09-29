@@ -75,7 +75,6 @@ Pendulum.prototype = {
         bodyDef2.userData = {name: "food"};
 
         // attaching the ball at the end of the rope
-        //var circleShape = new b2CircleShape(25 / this.settings.scale);
         //fixtureDef.shape = circleShape;
         var circleShape = new b2PolygonShape();
         circleShape.SetAsBox(25 / worldScale, 25 / worldScale);
