@@ -15,7 +15,7 @@ test1 = {
         },
         {
             type: Bow,
-            data: {x: 700, y: 200, rotation: 270}
+            data: {x: 720, y: 200, rotation: 270}
         }
     ],
     actors: []

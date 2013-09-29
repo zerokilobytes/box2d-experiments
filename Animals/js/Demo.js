@@ -5,7 +5,8 @@ var images = {
     pidgin: 'images/pidgin.png',
     blue_bird: 'images/blue_bird.png',
     twitter: 'images/twitter.png',
-    bow: 'images/Fixture/bow.png'
+    bow: 'images/Fixture/bow.png',
+    arrow: 'images/Fixture/arrow.png'
 };
 
 function init() {
@@ -18,7 +19,7 @@ function init() {
             }
         });
 
-        
+
         gameContext = new GameContext(settings, test1);
         gameContext.start();
 
