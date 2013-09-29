@@ -7,7 +7,7 @@ var Pendulum = function(context) {
 
 Pendulum.prototype = {
     init: function() {
-        this.steelBall;
+        Guid.prototype.set.call(this);
     },
     revoluteJoint: function(bodyA, bodyB, anchorA, anchorB) {
         var revoluteJointDef = new b2RevoluteJointDef();
@@ -17,12 +17,12 @@ Pendulum.prototype = {
         revoluteJointDef.bodyB = bodyB;
         this.world.CreateJoint(revoluteJointDef);
     },
-    spawn: function(position) {
+    spawn: function(data) {
         var worldScale = this.settings.scale;
         // number of links forming the rope
         var links = 6;
         // according to the number of links, I am setting the length of a single chain piace
-        var chainLength = 80 / links;
+        var chainLength = data.length / links;
 
         // ceiling polygon shape
         var polygonShape = new b2PolygonShape();
@@ -35,7 +35,7 @@ Pendulum.prototype = {
         fixtureDef.shape = polygonShape;
         // ceiling body
         var bodyDef = new b2BodyDef();
-        bodyDef.position.Set(position.x / worldScale, position.y / worldScale);
+        bodyDef.position.Set(data.x / worldScale, data.y / worldScale);
         // ceiling creation;
         var wall = this.world.CreateBody(bodyDef);
         wall.CreateFixture(fixtureDef);
@@ -46,10 +46,10 @@ Pendulum.prototype = {
         fixtureDef.shape = polygonShape;
         // link body
         bodyDef.type = b2Body.b2_dynamicBody;
-        bodyDef.userData = {name: "rope"};
+        bodyDef.userData = {name: "rope", guid: this.guid};
         // link creation
         for (var i = 0; i < links; i++) {
-            bodyDef.position.Set(position.x / worldScale, (chainLength + 2 * chainLength * i) / worldScale);
+            bodyDef.position.Set(data.x / worldScale, (chainLength + 2 * chainLength * i) / worldScale);
             if (i === 0) {
                 var link = this.world.CreateBody(bodyDef);
                 link.CreateFixture(fixtureDef);

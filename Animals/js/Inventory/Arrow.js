@@ -6,12 +6,17 @@
 var Arrow = function(context) {
     this.context = context;
     this.body = null;
+    this.hitList = [];
+    this.ttl = 5000.0;
+    this.collisionTime = null;
     this.init();
 };
 
 Arrow.prototype = {
     init: function() {
-
+        this.name = "arrow";
+        this.freeFlight = false;
+        this.hasCollided = false;
     },
     spawn: function(mousePosition, bowPosition) {
         var scale = this.context.settings.scale;
@@ -25,7 +30,8 @@ Arrow.prototype = {
         var bodyDef = new b2BodyDef();
         bodyDef.position.Set(mousePosition.x / scale, mousePosition.y / scale);
         bodyDef.type = b2Body.b2_dynamicBody;
-        bodyDef.userData = {name: "arrow", freeFlight: false, hasCollided: false};
+        bodyDef.userData = this;
+
         var polygonShape = new b2PolygonShape();
         polygonShape.SetAsVector(vertices, 4);
         var fixtureDef = new b2FixtureDef();
@@ -41,5 +47,29 @@ Arrow.prototype = {
         body.SetAngle(angle);
 
         this.body = body;
+    },
+    addHit: function(guid) {
+        this.hitList.push(guid);
+    },
+    hasHit: function(guid) {
+        for (var i = 0; i < this.hitList.length; i++) {
+            if (guid === this.hitList[i]) {
+                return true;
+            }
+        }
+        return false;
+    },
+    update: function() {
+        var body = this.body.GetDefinition();
+        //console.log(this.body.GetDefinition().awake);
+        if (this.collisionTime !== null) {
+            var currentTime = new Date();
+            var diff = currentTime.getTime() - this.collisionTime.getTime();
+
+            if (diff >= this.ttl) {
+                Undertaker.add(this.body, this.context.world);
+            }
+            
+        }
     }
 };

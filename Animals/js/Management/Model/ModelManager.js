@@ -45,7 +45,7 @@ ModelManager.prototype = {
                     body.SetAngle(flyingAngle);
                 }
             }
-
+            this.arrowVector[i].update();
         }
     }
 };

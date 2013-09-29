@@ -1,4 +1,4 @@
-var GameContext = function(settings) {
+var GameContext = function(settings, data) {
     this.timeStep = 1 / 60;
     this.velocityIterations = 10;
     this.positionIterations = 10;
@@ -7,6 +7,7 @@ var GameContext = function(settings) {
     this.debugMode = true;
     this.mouseDown = false;
     this.modelManager = null;
+    this.data = data;
     this.init();
 };
 GameContext.prototype = {
@@ -30,19 +31,7 @@ GameContext.prototype = {
         this.addDebug();
 
         this.world.SetContactListener(ArrowContactListner);
-
-        var pendulum1 = new Pendulum(this);
-        pendulum1.spawn(new Vector2D(260, 30));
-
-        var pendulum2 = new Pendulum(this);
-        pendulum2.spawn(new Vector2D(520, 30));
-
-        var bow = new Bow(this);
-        bow.spawn(new Vector2D(100, 400));
-
-        var bow = new Bow(this);
-        bow.spawn(new Vector2D(700, 200));
-
+        GameLoader.load(this);
     },
     start: function() {
         this.integrator = new Integrator(this);

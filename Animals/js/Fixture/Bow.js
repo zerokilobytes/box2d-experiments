@@ -1,6 +1,6 @@
 var Bow = function(context) {
     this.context = context;
-    this.rotation = 45;
+    this.rotation = 0;
     this.active = false;
     this.arrowHead = null;
     this.arrowTail = null;
@@ -12,15 +12,15 @@ Bow.prototype = {
         this.bowCenter = null;
         this.bodyVector = new Vector2D(310, 73);
         this.scaleVector = new Vector2D(0.5, 0.5);
+        Guid.prototype.set.call(this);
     },
-    spawn: function(position) {
-        this.bowCenter = position;
-
-        this.arrowHead = this.addMarker(position);
+    spawn: function(data) {
+        this.bowCenter = new Vector2D(data.x, data.y);
+        this.arrowHead = this.addMarker(new Vector2D(data.x, data.y));
         this.context.stage.addChild(this.arrowHead);
-
-        this.arrowTail = this.addMarker(position);
+        this.arrowTail = this.addMarker(new Vector2D(data.x, data.y));
         this.context.stage.addChild(this.arrowTail);
+        this.rotation = data.rotation;
         this.context.stage.update();
 
         this.arrowHead.addEventListener("mousedown", function(evt) {
@@ -29,10 +29,10 @@ Bow.prototype = {
 
         this.skin = this.createSkin(
                 Resource.images['bow'],
-                position,
+                new Vector2D(data.x, data.y),
                 new Vector2D(this.bodyVector.x / 2, this.bodyVector.y / 2));
-                
-        this.skin.getBitmap().rotation = this.rotation;        
+
+        this.skin.getBitmap().rotation = this.rotation;
 
         this.context.stage.addChild(this.skin.getBitmap());
 
@@ -91,7 +91,7 @@ Bow.prototype = {
         var stage = new createjs.Stage();
         //Create a Shape DisplayObject.
         circle = new createjs.Shape();
-        circle.graphics.beginFill("red").drawCircle(0, 0, 5);
+        circle.graphics.beginFill("red").drawCircle(0, 0, 10);
         //Set position of Shape instance.
         circle.x = position.x;
         circle.y = position.y;

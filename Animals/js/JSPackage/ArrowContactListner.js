@@ -34,18 +34,19 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
                 bodyB.GetWorld().DestroyJoint(j.joint);
             }
         }
-        if (objA.name === "wall" && objB.name === "arrow") {
-            if (!objB.freeFlight) {
-                weldJointDef = new b2WeldJointDef();
-                weldJointDef.Initialize(bodyB, bodyA, bodyA.GetWorldCenter());
-                bodyB.GetWorld().CreateJoint(weldJointDef);
-            }
-        }
+
         if (objB.name === "wall" && objA.name === "arrow") {
             if (!objA.freeFlight) {
                 weldJointDef = new b2WeldJointDef();
                 weldJointDef.Initialize(bodyA, bodyB, bodyB.GetWorldCenter());
                 bodyA.GetWorld().CreateJoint(weldJointDef);
+
+                if (objA.name === "arrow") {
+                    objA.hasCollided = true;
+                }
+            }
+            if (objA.freeFlight && objA.hasCollided && objA.name === "arrow") {
+                //Undertaker.add(bodyA, bodyA.GetWorld());
             }
         }
         if (objA.name === "food" && objB.name === "arrow") {
@@ -69,26 +70,27 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
         if ((objB.name === "arrow" && objA.name === "rope") ||
                 (objB.name === "rope" && objA.name === "arrow")) {
             var objectToDestroy = null;
-			var arrow = null;
+            var arrow = null;
             if (objB.name === "arrow") {
                 objectToDestroy = bodyA;
-				arrow = bodyB;
+                arrow = bodyB;
             }
             else {
                 objectToDestroy = bodyB;
-				arrow = bodyA;
+                arrow = bodyA;
             }
-			if(!arrow.hasCollided){
-				Undertaker.add(objectToDestroy, objectToDestroy.GetWorld());
-				arrow.hasCollided = true;
-			}
+
+            var guid = objectToDestroy.GetUserData().guid;
+            if (!arrow.GetUserData().hasHit(guid) && !arrow.hasCollided) {
+                arrow.GetUserData().addHit(guid);
+                Undertaker.add(objectToDestroy, objectToDestroy.GetWorld());
+            }
         }
 
-
-        if (objB.name === "arrow") {
-            objB.freeFlight = true;
-        }
-        if (objA.name === "arrow") {
+        if (objA.name === "arrow" || objB.name === "arrow") {
+            if (!objA.freeFlight) {
+                objA.collisionTime = new Date();
+            }
             objA.freeFlight = true;
         }
     }

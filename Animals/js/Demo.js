@@ -18,18 +18,9 @@ function init() {
             }
         });
 
-        gameContext = new GameContext(settings);
+        
+        gameContext = new GameContext(settings, test1);
         gameContext.start();
-
-        //var bird1 = new Twitter();
-        //var bird2 = new BlueBird();
-        //var bird3 = new Pidgin();
-
-        //gameContext.addEntity(bird1);
-        //gameContext.addEntity(bird2);
-        //gameContext.addEntity(bird3);
-
-
 
         createjs.Ticker.setFPS(60);
         createjs.Ticker.useRAF = true;
