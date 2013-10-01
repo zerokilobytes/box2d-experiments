@@ -1,12 +1,9 @@
 var gameContext;
 
 var images = {
-    bird: 'images/bird.png',
-    pidgin: 'images/pidgin.png',
-    blue_bird: 'images/blue_bird.png',
-    twitter: 'images/twitter.png',
     bow: 'images/Fixture/bow.png',
-    arrow: 'images/Fixture/arrow.png'
+    arrow: 'images/Fixture/arrow.png',
+    apple: 'images/Fruit/apple.png'
 };
 
 function init() {

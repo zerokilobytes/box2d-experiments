@@ -52,18 +52,18 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
         if (objA.name === "food" && objB.name === "arrow") {
             contactPoint = contact.GetManifold().m_points[0].m_localPoint;
             if (!objB.freeFlight && Math.round(contactPoint.x * 10) === 6) {
-                weldJointDef = new b2WeldJointDef();
-                weldJointDef.Initialize(bodyB, bodyA, bodyA.GetWorldCenter());
-                bodyB.GetWorld().CreateJoint(weldJointDef);
+                //weldJointDef = new b2WeldJointDef();
+                //weldJointDef.Initialize(bodyB, bodyA, bodyA.GetWorldCenter());
+                //bodyB.GetWorld().CreateJoint(weldJointDef);
             }
         }
         if (objB.name === "food" && objA.name === "arrow") {
 
             contactPoint = contact.GetManifold().m_points[0].m_localPoint;
             if (!objA.freeFlight && Math.round(contactPoint.x * 10) === 6) {
-                weldJointDef = new b2WeldJointDef();
-                weldJointDef.Initialize(bodyA, bodyB, bodyB.GetWorldCenter());
-                bodyA.GetWorld().CreateJoint(weldJointDef);
+                //weldJointDef = new b2WeldJointDef();
+                //weldJointDef.Initialize(bodyA, bodyB, bodyB.GetWorldCenter());
+                //bodyA.GetWorld().CreateJoint(weldJointDef);
             }
         }
 

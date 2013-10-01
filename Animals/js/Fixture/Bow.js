@@ -54,7 +54,6 @@ Bow.prototype = {
                 _this.context.addArrow(new Vector2D(_this.arrowTail.x,
                         _this.arrowTail.y), _this.getPosition());
 
-
                 _this.arrowTail.x = _this.arrowHead.x;
                 _this.arrowTail.y = _this.arrowHead.y;
                 _this.virtualArrow.removeSkin();
@@ -64,14 +63,17 @@ Bow.prototype = {
 
         this.context.stage.addEventListener("stagemousemove", function(event) {
             if (_this.active) {
-                _this.update(new Vector2D(event.stageX, event.stageY));
+                _this.updateArrow(new Vector2D(event.stageX, event.stageY));
             }
         });
     },
     getPosition: function() {
         return this.bowCenter;
     },
-    update: function(position) {
+    update: function() {
+
+    },
+    updateArrow: function(position) {
         var angleRadian = Math.atan2(position.y - this.bowCenter.y, position.x - this.bowCenter.x);
         var angle = MathFunc.normalizeAngle((angleRadian * 180 / Math.PI));
         this.rotation = angle;

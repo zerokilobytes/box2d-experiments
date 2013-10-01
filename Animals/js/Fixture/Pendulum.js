@@ -1,7 +1,8 @@
 var Pendulum = function(context) {
+    this.context = context;
     this.settings = context.settings;
     this.world = context.world;
-
+    this.fruit = null;
     this.init();
 };
 
@@ -26,7 +27,7 @@ Pendulum.prototype = {
 
         // ceiling polygon shape
         var polygonShape = new b2PolygonShape();
-        polygonShape.SetAsBox(8 / worldScale, 8 / worldScale);
+        polygonShape.SetAsBox(5 / worldScale, 5 / worldScale);
         // ceiling fixture;
         var fixtureDef = new b2FixtureDef();
         fixtureDef.density = 1;
@@ -40,7 +41,7 @@ Pendulum.prototype = {
         var wall = this.world.CreateBody(bodyDef);
         wall.CreateFixture(fixtureDef);
         // link polygon shape
-        polygonShape.SetAsBox(2.5 / worldScale, chainLength / worldScale);
+        polygonShape.SetAsBox(1 / worldScale, chainLength / worldScale);
         // link fixture;
         fixtureDef.density = 5;
         fixtureDef.shape = polygonShape;
@@ -63,6 +64,7 @@ Pendulum.prototype = {
             }
         }
 
+
         var fixtureDef = new b2FixtureDef();
         fixtureDef.density = 0;
         fixtureDef.friction = 1;
@@ -77,12 +79,23 @@ Pendulum.prototype = {
         // attaching the ball at the end of the rope
         //fixtureDef.shape = circleShape;
         var circleShape = new b2PolygonShape();
-        circleShape.SetAsBox(25 / worldScale, 25 / worldScale);
+        circleShape.SetAsBox(32 / worldScale, 32 / worldScale);
         fixtureDef.shape = circleShape;
 
         this.steelBall = this.world.CreateBody(bodyDef2);
         this.steelBall.CreateFixture(fixtureDef);
         this.revoluteJoint(link, this.steelBall, new b2Vec2(0, chainLength / worldScale), new b2Vec2(0, 0));
+
+        this.fruit = new Fruit(this.context);
+        this.fruit.show(new Vector2D(data.x, (0 + data.length)));
+        this.fruit.body = this.steelBall;
+
+        //this.fruit = new Fruit(this.context);
+        //this.fruit.spawn(new Vector2D(data.x, (0 + data.length)));
+        //this.revoluteJoint(link, this.fruit.body, new b2Vec2(0, chainLength / worldScale), new b2Vec2(0, 0));
+    },
+    update: function() {
+        this.fruit.update();
     },
     sphereImpulse: function(e) {
         this.steelBall.ApplyImpulse(new b2Vec2(-50 + Math.random() * 100, -150), this.steelBall.GetWorldCenter());

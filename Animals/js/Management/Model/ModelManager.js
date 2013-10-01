@@ -1,6 +1,7 @@
 var ModelManager = function(context) {
     this.context = context;
     this.arrowVector = [];
+    this.models = [];
     this.init();
 };
 
@@ -10,6 +11,12 @@ ModelManager.prototype = {
     },
     update: function() {
         this.updateArrow();
+        this.updateModel();
+    },
+    updateModel: function() {
+        for (var i = 0; i < this.models.length; i++) {
+            this.models[i].update();
+        }
     },
     updateArrow: function() {
         var dragConstant = 0.05;
