@@ -26,7 +26,6 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
             return;
 
         if (objA.name === "arrow" && objB.name === "arrow") {
-            //console.log(contact);
             for (var j = bodyA.GetJointList(); j; j = j.next) {
                 bodyA.GetWorld().DestroyJoint(j.joint);
             }
@@ -71,7 +70,6 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
                 (objB.name === "food" && objA.name === "arrow")) {
             var objectToDestroy = null;
             var arrow = null;
-            console.log(objB);
             if (objB.name === "arrow") {
                 objectToDestroy = bodyA;
                 arrow = bodyB;

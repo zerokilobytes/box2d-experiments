@@ -18,6 +18,8 @@ Bow.prototype = {
         Guid.prototype.set.call(this);
     },
     spawn: function(data) {
+        this.enabled = true;
+
         this.lastTime = new Date();
         this.bowCenter = new Vector2D(data.x, data.y);
         this.arrowHead = this.addMarker(new Vector2D(data.x, data.y));
@@ -43,10 +45,19 @@ Bow.prototype = {
 
         var _this = this;
 
+        this.skin.getBitmap().onMouseOver = function(e) {
+            document.body.style.cursor = 'pointer';
+        };
+        this.skin.getBitmap().onPress = function(e) {
+            document.body.style.cursor = 'move';
+        };
+        this.skin.getBitmap().onMouseOut = function(e) {
+            document.body.style.cursor = 'default';
+        };
+
         this.skin.getBitmap().addEventListener("mousedown", function(event) {
             _this.skin.getBitmap().rotation = _this.lastRotation;
             _this.active = true;
-
         });
 
         this.context.stage.addEventListener("stagemouseup", function(event) {
@@ -72,7 +83,6 @@ Bow.prototype = {
         }
     },
     fire: function() {
-        console.log("fire");
         this.context.addArrow(new Vector2D(this.arrowHead.x, this.arrowHead.y), this.getPosition());
     },
     updatePosition: function(position) {

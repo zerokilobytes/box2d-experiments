@@ -16,7 +16,6 @@ var Arrow = function(context) {
 Arrow.prototype = {
     init: function() {
         this.name = "arrow";
-        this.enabled = false;
         this.freeFlight = false;
         this.hasCollided = false;
 
@@ -24,6 +23,7 @@ Arrow.prototype = {
         this.scaleVector = new Vector2D(1.0, 1.0);
     },
     spawn: function(mousePosition, bowPosition) {
+        this.enabled = true;
         var scale = this.context.settings.scale;
 
         var angle = Math.atan2(mousePosition.y - bowPosition.y, mousePosition.x - bowPosition.x);
@@ -77,18 +77,20 @@ Arrow.prototype = {
         return false;
     },
     update: function() {
-        if (this.enabled) {
-            //console.log(this.body.GetDefinition().awake);
-            if (this.collisionTime !== null) {
-                var currentTime = new Date();
-                var diff = currentTime.getTime() - this.collisionTime.getTime();
+        //if (this.enabled) {
+        if (this.collisionTime !== null) {
+            var currentTime = new Date();
+            var diff = currentTime.getTime() - this.collisionTime.getTime();
 
-                if (diff >= this.ttl) {
-                    this.remove();
-                }
+            if (diff >= this.ttl) {
+                this.remove();
             }
-            this.updateSkin();
         }
+        if (this.body.GetPosition().y <= 0) {
+            this.remove();
+        }
+        this.updateSkin();
+        // }
     },
     remove: function() {
         Undertaker.add(this);

@@ -17,6 +17,7 @@ Fruit.prototype = {
         this.context.stage.addChild(this.skin.getBitmap());
     },
     spawn: function(positionVector) {
+        this.enabled = true;
         var scale = this.context.settings.scale;
 
         this.skin = this.createSkin(Resource.images['apple'], positionVector, this.bodyVector);
@@ -38,7 +39,6 @@ Fruit.prototype = {
         return Entity.prototype.createSkin.call(this, image, positionVector, this.bodyVector);
     },
     createEntityBody: function(postion, scale) {
-        console.log(this.context);
         return Entity.prototype.createEntityBody.call(this, postion, scale);
     },
     destroy: function() {

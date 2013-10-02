@@ -3,7 +3,7 @@ var gameContext;
 var images = {
     bow: 'images/Fixture/bow.png',
     arrow: 'images/Fixture/arrow.png',
-    apple: 'images/Fruit/apple.png',
+    apple: 'images/Fruit/frog.png',
     nav: 'images/Fixture/nav.png'
 };
 

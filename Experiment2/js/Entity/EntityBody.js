@@ -1,5 +1,4 @@
 var EntityBody = function(context, postion, sizeVector, scale) {
-    console.log(context);
     this.context = context;
     this.postion = postion;
     this.scale = scale;
