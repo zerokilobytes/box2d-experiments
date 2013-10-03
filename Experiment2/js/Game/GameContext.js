@@ -8,7 +8,7 @@ var GameContext = function(settings, data) {
     this.mouseDown = false;
     this.modelManager = null;
     this.data = data;
-    this.rate = 4000;
+    this.rate = 6000;
     this.init();
 };
 GameContext.prototype = {
@@ -27,7 +27,7 @@ GameContext.prototype = {
 
         this.modelManager = new ModelManager(this);
         //Create world
-        this.world = new b2World(new b2Vec2(0, 10), true);
+        this.world = new b2World(new b2Vec2(0, 5), true);
         this.addDebug();
         this.world.SetContactListener(ArrowContactListner);
         GameLoader.load(this);

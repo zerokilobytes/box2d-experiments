@@ -29,10 +29,10 @@ EntityBody.prototype = {
         polygonShape.SetAsBox(this.sizeVector.x / this.scale, this.sizeVector.y / this.scale);
 
         var birdFixture = new b2FixtureDef;
-        
-        birdFixture.density = 1.0;
-        birdFixture.friction = 0.5;
-        birdFixture.restitution = 0.3;
+
+        birdFixture.density = MathFunc.getRandomArbitrary(2, 100);
+        birdFixture.friction = MathFunc.getRandomArbitrary(0.1, 1);
+        birdFixture.restitution = 0.2;
         birdFixture.shape = polygonShape;
         var birdBodyDef = new b2BodyDef;
         birdBodyDef.type = b2Body.b2_dynamicBody;
@@ -42,6 +42,8 @@ EntityBody.prototype = {
         this.body = this.context.world.CreateBody(birdBodyDef);
         this.body.CreateFixture(birdFixture);
         //this.body.SetUserData(this);
+
+
     },
     getDefinition: function() {
         return this.body;

@@ -22,11 +22,19 @@ Fruit.prototype = {
 
         this.skin = this.createSkin(Resource.images['apple'], positionVector, this.bodyVector);
         this.body = this.createEntityBody(positionVector, scale).body;
+
+        //this.body.SetLinearVelocity(new b2Vec2(0, 0));
+        //this.body.SetAngularVelocity(new b2Vec2(0, 0));
+
+        //this.body.GetFixtureList().m_density = -10;//MathFunc.getRandomArbitrary(1, 200);
         this.context.stage.addChild(this.skin.getBitmap());
 
         Entity.prototype.spawn.call(this);
     },
     update: function() {
+        this.body.SetFixedRotation(true);
+        //this.body.ApplyForce(0, this.body.GetPosition());
+        //this.body.ApplyForce(this.body.GetMass() * this.context.world.GetGravity(), this.body.GetWorldCenter());
         Entity.prototype.update.call(this);
     },
     getSkin: function() {

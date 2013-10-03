@@ -8,7 +8,7 @@ var Arrow = function(context) {
     this.context = context;
     this.body = null;
     this.hitList = [];
-    this.ttl = 1500.0;
+    this.ttl = 900.0;
     this.collisionTime = null;
     this.init();
 };
@@ -44,7 +44,7 @@ Arrow.prototype = {
         polygonShape.SetAsVector(vertices, 4);
         var fixtureDef = new b2FixtureDef();
         fixtureDef.shape = polygonShape;
-        fixtureDef.density = 1;
+        fixtureDef.density = 100;
         fixtureDef.friction = 0.5;
         fixtureDef.restitution = 0.1;
         var body = this.context.world.CreateBody(bodyDef);

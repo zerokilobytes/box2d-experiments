@@ -3,7 +3,7 @@ var ModelManager = function(context) {
     this.arrowVector = [];
     this.models = [];
     this.lastTime = null;
-    this.fireRate = 500;
+    this.spawnRate = 300;
     this.init();
 };
 
@@ -68,16 +68,18 @@ ModelManager.prototype = {
     spawnEnemy: function() {
         var currentTime = new Date();
         var diff = currentTime.getTime() - this.lastTime.getTime();
-        if (diff >= this.fireRate) {
+        if (diff >= this.spawnRate) {
             this.lastTime = currentTime;
             this.addEnemy();
 
         }
     },
     addEnemy: function() {
-        var x = this.context.settings.screeSize.width * Math.random();
+        var x = this.context.settings.screeSize.width * Math.random() - 10;
+        var y = MathFunc.getRandomInt(50, 100) * -1;
+
         var bird = new Fruit(this.context);
         this.add(bird);
-        bird.spawn(new Vector2D(x, 50));
+        bird.spawn(new Vector2D(x, y));
     }
 };

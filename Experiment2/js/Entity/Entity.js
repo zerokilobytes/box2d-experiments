@@ -14,7 +14,7 @@ Entity.prototype = {
     update: function() {
         var scale = this.context.settings.scale;
 
-        this.skin.getBitmap().rotation = this.body.GetAngle() * (180 / Math.PI);
+        //this.skin.getBitmap().rotation = this.body.GetAngle() * (180 / Math.PI);
         this.skin.getBitmap().x = this.body.GetWorldCenter().x * scale;
         this.skin.getBitmap().y = this.body.GetWorldCenter().y * scale;
     },

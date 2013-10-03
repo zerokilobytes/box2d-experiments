@@ -1,5 +1,5 @@
 var gameContext;
-
+var numEnterPoints = 0;
 var images = {
     bow: 'images/Fixture/bow.png',
     arrow: 'images/Fixture/arrow.png',
@@ -12,7 +12,7 @@ function init() {
         settings = new Settings({
             scale: 60,
             screeSize: {
-                width: 480,
+                width: 600,
                 height: 768
             }
         });
