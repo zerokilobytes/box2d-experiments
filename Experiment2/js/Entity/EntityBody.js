@@ -43,7 +43,9 @@ EntityBody.prototype = {
         this.body.CreateFixture(birdFixture);
         //this.body.SetUserData(this);
 
-
+        var angle = MathFunc.getRandomArbitrary(180, 360) * Math.PI / 180;
+        this.body.SetLinearVelocity(new b2Vec2(5 * Math.cos(angle), Math.sin(angle)));
+        this.body.SetAngle(angle);
     },
     getDefinition: function() {
         return this.body;

@@ -66,7 +66,8 @@ Bow.prototype = {
         this.context.stage.addEventListener("stagemousedown", function(event) {
             _this.skin.getBitmap().rotation = _this.lastRotation;
             _this.active = true;
-
+            _this.fire();
+            _this.lastTime = new Date();
             //document.body.style.cursor = "url('http://localhost:8383/Experiment2/images/pointer.png'), auto";
         });
 
@@ -93,7 +94,9 @@ Bow.prototype = {
         }
     },
     fire: function() {
-        this.context.addArrow(new Vector2D(this.arrowHead.x, this.arrowHead.y), this.getPosition());
+        if (this.active) {
+            this.context.addArrow(new Vector2D(this.arrowHead.x, this.arrowHead.y), this.getPosition());
+        }
     },
     updatePosition: function(position) {
 
