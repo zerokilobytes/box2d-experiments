@@ -6,7 +6,7 @@ var Bow = function(context) {
     this.arrowTail = null;
     this.virtualArrow = null;
     this.lastTime = null;
-    this.fireRate = 500;
+    this.fireRate = 200;
     this.init();
 };
 
@@ -44,7 +44,8 @@ Bow.prototype = {
         this.arrowHead.y = this.bowCenter.y - Math.sin(0 + MathFunc.toRadiant(90)) * radius;
 
         var _this = this;
-
+        
+        /*
         this.skin.getBitmap().onMouseOver = function(e) {
             document.body.style.cursor = 'pointer';
         };
@@ -56,6 +57,12 @@ Bow.prototype = {
         };
 
         this.skin.getBitmap().addEventListener("mousedown", function(event) {
+            _this.skin.getBitmap().rotation = _this.lastRotation;
+            _this.active = true;
+        });
+        */
+       
+       this.context.stage.addEventListener("stagemousedown", function(event) {
             _this.skin.getBitmap().rotation = _this.lastRotation;
             _this.active = true;
         });

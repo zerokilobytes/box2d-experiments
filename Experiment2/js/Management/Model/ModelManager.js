@@ -3,7 +3,7 @@ var ModelManager = function(context) {
     this.arrowVector = [];
     this.models = [];
     this.lastTime = null;
-    this.fireRate = 3000;
+    this.fireRate = 500;
     this.init();
 };
 

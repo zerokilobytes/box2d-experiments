@@ -8,7 +8,7 @@ var Arrow = function(context) {
     this.context = context;
     this.body = null;
     this.hitList = [];
-    this.ttl = 3000.0;
+    this.ttl = 1500.0;
     this.collisionTime = null;
     this.init();
 };
