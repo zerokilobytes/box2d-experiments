@@ -35,4 +35,18 @@ $(document).ready(function() {
     $('#debug').on('click', function() {
         gameContext.toggleDebug();
     });
+
+    $("body").on("mouseover", function(e) {
+        e.preventDefault();
+        $(this).addClass("mouseDown");
+    }).on("mouseup", function() {
+        //$(this).removeClass("mouseDown");
+    });
+    
+    $("body").on("mousedown", function(e) {
+        e.preventDefault();
+        $(this).addClass("mouseDown");
+    }).on("mouseup", function() {
+        //$(this).removeClass("mouseDown");
+    });
 });

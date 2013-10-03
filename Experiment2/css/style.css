@@ -17,3 +17,13 @@ html, body { margin:0; padding:0; position: relative}
     clear:both;
     float:right;
 }
+/*
+html
+{
+    cursor: url(http://localhost:8383/Experiment2/images/pointer.png), auto;
+}
+*/
+
+.mouseDown{
+    cursor: url(../images/pointer.png), auto;
+}
