@@ -27,7 +27,7 @@ GameContext.prototype = {
 
         this.modelManager = new ModelManager(this);
         //Create world
-        this.world = new b2World(new b2Vec2(0, 5), true);
+        this.world = new b2World(new b2Vec2(0, 1), true);
         this.addDebug();
         this.world.SetContactListener(ArrowContactListner);
         GameLoader.load(this);

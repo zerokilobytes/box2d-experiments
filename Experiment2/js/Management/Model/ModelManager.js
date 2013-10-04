@@ -75,8 +75,8 @@ ModelManager.prototype = {
         }
     },
     addEnemy: function() {
-        var x = this.context.settings.screeSize.width * Math.random() - 10;
-        var y = MathFunc.getRandomInt(50, 100) * -1;
+        var x = MathFunc.getRandomArbitrary(74, this.context.settings.screeSize.width - 74);
+        var y = MathFunc.getRandomArbitrary(80, 160) * -1;
 
         var bird = new Fruit(this.context);
         this.add(bird);

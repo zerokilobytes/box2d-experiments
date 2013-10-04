@@ -11,7 +11,7 @@ var Integrator = function(context) {
 
 Integrator.prototype = {
     setup: function() {
-        //this.addDebug();
+        var extraHeight = 200;
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
         fixDef.friction = 0.4;
@@ -23,10 +23,10 @@ Integrator.prototype = {
         //bottom
         //this.wall(this.settings.screeSize.width / 2, this.settings.screeSize.height - (floorHeight / 2), this.settings.screeSize.width, floorHeight);
         //right
-        this.wall(this.settings.screeSize.width - (floorHeight / 2), this.settings.screeSize.height / 2, floorHeight, this.settings.screeSize.height);
-        
+        this.wall(this.settings.screeSize.width - (floorHeight / 2), this.settings.screeSize.height / 2, floorHeight, this.settings.screeSize.height + extraHeight);
+
         //left
-        this.wall((floorHeight / 2), this.settings.screeSize.height / 2, floorHeight, this.settings.screeSize.height);
+        this.wall((floorHeight / 2), this.settings.screeSize.height / 2, floorHeight, this.settings.screeSize.height + extraHeight);
 
         //top
         //this.wall(this.settings.screeSize.width / 2, (floorHeight / 2), this.settings.screeSize.width, floorHeight);
