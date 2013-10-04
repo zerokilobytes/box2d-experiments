@@ -8,14 +8,6 @@ var images = {
     part01: 'images/Fixture/part01.png'
 };
 function initVisual() {
-
-    // Canvas reference
-    var canvas = document.getElementById("testCanvas");
-
-    // CreateJS stage
-    //stage = new Stage(canvas);
-
-    // SpriteSheet: copy/paste from the ZOE JSON output	
     spriteSheet = {"images": ["images/smoke.png"], "animations": {"jump": [10, 19], "boom": [0, 9]}, "frames": {"height": 94, "regX": 0, "count": 20, "regY": 0, "width": 96}};
 
     // Spritesheet creation
@@ -33,14 +25,11 @@ function initVisual() {
     loader = new PreloadJS();
     loader.onComplete = handleComplete;
     loader.loadManifest(manifest);
-
-
 }
 
 function handleComplete() {
-console.log(gameContext);
     // MouseDown event listener
-    gameContext.stage.onMouseDown = smokeDisplay;
+    gameContext.smokeDisplay = smokeDisplay;
 }
 
 function smokeDisplay(e) {
@@ -55,8 +44,8 @@ function smokeDisplay(e) {
     smoke.gotoAndPlay(aniLabel);
 
     // Set the smoke position (equal to mouse position)
-    smoke.x = e.stageX;
-    smoke.y = e.stageY;
+    smoke.x = e.x;
+    smoke.y = e.y;
 
     // Remove smoke when animation ends
     smoke.onAnimationEnd = function() {
