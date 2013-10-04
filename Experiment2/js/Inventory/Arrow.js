@@ -115,5 +115,8 @@ Arrow.prototype = {
         var centerVector = new Vector2D(this.bodyVector.x / 2, this.bodyVector.y / 2);
         var skin = new EntitySkin(image, positionVector, centerVector, this.scaleVector);
         return skin;
+    },
+    getPosition: function() {
+        return this.body.GetPosition();
     }
 };

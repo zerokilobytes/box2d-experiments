@@ -11,7 +11,7 @@ var Integrator = function(context) {
 
 Integrator.prototype = {
     setup: function() {
-        var extraHeight = 400;
+        var extraHeight = 600;
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
         fixDef.friction = 0.4;

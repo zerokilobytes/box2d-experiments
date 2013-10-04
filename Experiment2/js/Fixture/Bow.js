@@ -67,9 +67,9 @@ Bow.prototype = {
         this.context.stage.addEventListener("stagemousedown", function(event) {
             _this.skin.getBitmap().rotation = _this.lastRotation;
             _this.active = true;
+            _this.updatePosition(new Vector2D(event.stageX, event.stageY));
             _this.fire();
             _this.lastTime = new Date();
-            //document.body.style.cursor = "url('http://localhost:8383/Experiment2/images/pointer.png'), auto";
         });
 
         this.context.stage.addEventListener("stagemouseup", function(event) {

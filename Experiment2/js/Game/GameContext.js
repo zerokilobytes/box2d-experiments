@@ -8,7 +8,6 @@ var GameContext = function(settings, data) {
     this.mouseDown = false;
     this.modelManager = null;
     this.data = data;
-    this.rate = 6000;
     this.init();
 };
 GameContext.prototype = {
@@ -44,7 +43,6 @@ GameContext.prototype = {
         this.integrator.update();
         this.modelManager.update();
         this.stage.update();
-        Undertaker.purge();
     },
     createConvas: function(name, width, height) {
         var canvas = document.createElement('canvas');

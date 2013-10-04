@@ -3,7 +3,7 @@ var ModelManager = function(context) {
     this.arrowVector = [];
     this.models = [];
     this.lastTime = null;
-    this.spawnRate = 300;
+    this.spawnRate = 400;
     this.init();
 };
 
@@ -15,6 +15,7 @@ ModelManager.prototype = {
         this.updateArrow();
         this.updateModel();
         this.spawnEnemy();
+        this.cleanUp();
     },
     updateModel: function() {
         for (var i = 0; i < this.models.length; i++) {
@@ -25,6 +26,9 @@ ModelManager.prototype = {
     },
     add: function(model) {
         this.models.push(model);
+    },
+    cleanUp: function() {
+        Undertaker.purge();
     },
     updateArrow: function() {
         var dragConstant = 0.05;
@@ -81,5 +85,26 @@ ModelManager.prototype = {
         var enemy = new Toad(this.context);
         this.add(enemy);
         enemy.spawn(new Vector2D(x, y));
+    },
+    pop: function(position) {
+        for (var i = 0; i < this.models.length; i++) {
+            if (this.models[i].enabled && (this.models[i].type === "enemy" || this.models[i].type === "particle")) {
+                var objA = this.models[i].getPosition();
+                var objB = position;
+
+                var xDist = objA.x - objB.x;
+                var yDist = objA.y - objB.y;
+
+                var distSqr = (xDist * xDist) + (yDist * yDist);
+                var force = 5;
+                var a = Math.atan2(yDist, xDist);
+                var bpt = this.models[i].body.GetPosition();
+
+                if (distSqr < 5) {
+                    this.models[i].body.ApplyImpulse(new b2Vec2(Math.cos(a) * force, Math.sin(a) * force), bpt);
+                }
+            }
+        }
     }
+
 };

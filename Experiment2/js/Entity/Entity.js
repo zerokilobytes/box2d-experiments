@@ -14,7 +14,9 @@ Entity.prototype = {
     update: function() {
         var scale = this.context.settings.scale;
 
-        //this.skin.getBitmap().rotation = this.body.GetAngle() * (180 / Math.PI);
+        if (this.canRotate) {
+            this.skin.getBitmap().rotation = this.body.GetAngle() * (180 / Math.PI);
+        }
         this.skin.getBitmap().x = this.body.GetWorldCenter().x * scale;
         this.skin.getBitmap().y = this.body.GetWorldCenter().y * scale;
     },
@@ -32,13 +34,20 @@ Entity.prototype = {
     },
     destroy: function() {
         this.enabled = false;
+        var position = this.getPosition();
         var world = this.context.world;
         var body = this.body;
         world.DestroyBody(body);
         this.enabled = false;
         this.removeSkin();
+        if (this.type === "enemy") {
+            this.context.modelManager.pop(position);
+        }
     },
     removeSkin: function() {
         this.context.stage.removeChild(this.skin.getBitmap());
+    },
+    pop: function(position) {
+        this.context.modelManager.pop(position);
     }
 };

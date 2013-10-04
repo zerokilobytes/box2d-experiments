@@ -9,18 +9,19 @@ Toad.prototype = {
         this.bodyVector = new Vector2D(32, 32);
         Entity.prototype.init.call(this);
         this.scaleVector = new Vector2D(1, 1);
+        this.canRotate = false;
     },
     show: function(positionVector) {
         var scale = this.context.settings.scale;
 
-        this.skin = this.createSkin(Resource.images['toad'], positionVector, this.bodyVector);
+        this.skin = this.createSkin(Resource.images['frog'], positionVector, this.bodyVector);
         this.context.stage.addChild(this.skin.getBitmap());
     },
     spawn: function(positionVector) {
         this.enabled = true;
         var scale = this.context.settings.scale;
 
-        this.skin = this.createSkin(Resource.images['apple'], positionVector, this.bodyVector);
+        this.skin = this.createSkin(Resource.images['frog'], positionVector, this.bodyVector);
         this.body = this.createEntityBody(positionVector, scale).body;
 
         //this.body.SetLinearVelocity(new b2Vec2(0, 0));
@@ -32,6 +33,7 @@ Toad.prototype = {
         Entity.prototype.spawn.call(this);
     },
     update: function() {
+        //this.body.SetLinearVelocity(new b2Vec2(0, 0));
         this.body.SetFixedRotation(true);
         //this.body.ApplyForce(0, this.body.GetPosition());
         //this.body.ApplyForce(this.body.GetMass() * this.context.world.GetGravity(), this.body.GetWorldCenter());
@@ -50,10 +52,28 @@ Toad.prototype = {
         return Entity.prototype.createEntityBody.call(this, postion, scale);
     },
     destroy: function() {
-        //this.body.ApplyImpulse(new b2Vec2(-5, -10), this.body.GetWorldCenter());
         Entity.prototype.destroy.call(this);
+
+        for (var i = 0; i < 4; i++) {
+            var a = MathFunc.getRandomArbitrary(1, 360) * Math.PI / 180;
+            var pos = this.getAbsolutePosition();
+            var rad = 150;
+            var radX = rad * Math.cos(a);
+            var radY = rad * Math.sin(a);
+            var piece = new BodyPart(this.context);
+            piece.spawn(new Vector2D(pos.x + radX, pos.y + radY));
+            this.context.modelManager.add(piece);
+        }
     },
     removeSkin: function() {
         Entity.prototype.removeSkin.call(this);
+    },
+    getPosition: function() {
+        return this.body.GetPosition();
+    },
+    getAbsolutePosition: function() {
+        var scale = this.context.settings.scale;
+        var box2dVec = this.body.GetPosition();
+        return new Vector2D(box2dVec.x * scale, box2dVec.y * scale);
     }
 };
