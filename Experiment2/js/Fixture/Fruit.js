@@ -50,6 +50,7 @@ Fruit.prototype = {
         return Entity.prototype.createEntityBody.call(this, postion, scale);
     },
     destroy: function() {
+        //this.body.ApplyImpulse(new b2Vec2(-5, -10), this.body.GetWorldCenter());
         Entity.prototype.destroy.call(this);
     },
     removeSkin: function() {

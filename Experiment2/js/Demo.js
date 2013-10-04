@@ -3,7 +3,7 @@ var numEnterPoints = 0;
 var images = {
     bow: 'images/Fixture/bow.png',
     arrow: 'images/Fixture/arrow.png',
-    apple: 'images/Fruit/frog.png',
+    apple: 'images/Actor/frog.png',
     nav: 'images/Fixture/nav.png'
 };
 
