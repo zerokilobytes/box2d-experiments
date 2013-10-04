@@ -45,7 +45,7 @@ EntityBody.prototype = {
 
         var angle = MathFunc.getRandomArbitrary(180, 360) * Math.PI / 180;
         var velocityX = MathFunc.getRandomArbitrary(2, 10) * -1;
-        var velocityY = MathFunc.getRandomArbitrary(0.1, 1.0) * -1;
+        var velocityY = MathFunc.getRandomArbitrary(0.1, 2.0) * -1;
         this.body.SetLinearVelocity(new b2Vec2(Math.cos(angle) * velocityX, Math.sin(angle) * velocityY));
         this.body.SetAngle(angle);
     },

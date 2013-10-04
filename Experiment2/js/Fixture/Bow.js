@@ -12,6 +12,7 @@ var Bow = function(context) {
 
 Bow.prototype = {
     init: function() {
+        this.type = "fixture";
         this.bowCenter = null;
         this.bodyVector = new Vector2D(187, 183);
         this.scaleVector = new Vector2D(1, 1);

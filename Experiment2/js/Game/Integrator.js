@@ -11,7 +11,7 @@ var Integrator = function(context) {
 
 Integrator.prototype = {
     setup: function() {
-        var extraHeight = 200;
+        var extraHeight = 400;
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
         fixDef.friction = 0.4;
@@ -29,13 +29,13 @@ Integrator.prototype = {
         this.wall((floorHeight / 2), this.settings.screeSize.height / 2, floorHeight, this.settings.screeSize.height + extraHeight);
 
         //top
-        //this.wall(this.settings.screeSize.width / 2, (floorHeight / 2), this.settings.screeSize.width, floorHeight);
+        this.wall(this.settings.screeSize.width / 2, (floorHeight / 2) - extraHeight, this.settings.screeSize.width, floorHeight);
     },
     wall: function(pX, pY, w, h) {
         var worldScale = this.settings.scale;
         var bodyDef = new b2BodyDef();
         bodyDef.position.Set(pX / worldScale, pY / worldScale);
-        bodyDef.userData = {name: "wall"};
+        bodyDef.userData = {type: "wall"};
         var polygonShape = new b2PolygonShape();
         polygonShape.SetAsBox(w / 2 / worldScale, h / 2 / worldScale);
         var fixtureDef = new b2FixtureDef();

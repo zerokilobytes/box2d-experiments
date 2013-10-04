@@ -25,7 +25,7 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
         if (objA === null || objB === null)
             return;
 
-        if (objA.name === "arrow" && objB.name === "arrow") {
+        if (objA.type === "weapon" && objB.type === "weapon") {
             for (var j = bodyA.GetJointList(); j; j = j.next) {
                 bodyA.GetWorld().DestroyJoint(j.joint);
             }
@@ -34,21 +34,21 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
             }
         }
 
-        if (objB.name === "wall" && objA.name === "arrow") {
+        if (objB.type === "wall" && objA.type === "weapon") {
             if (!objA.freeFlight) {
                 weldJointDef = new b2WeldJointDef();
                 weldJointDef.Initialize(bodyA, bodyB, bodyB.GetWorldCenter());
                 bodyA.GetWorld().CreateJoint(weldJointDef);
 
-                if (objA.name === "arrow") {
+                if (objA.type === "weapon") {
                     objA.hasCollided = true;
                 }
             }
-            if (objA.freeFlight && objA.hasCollided && objA.name === "arrow") {
+            if (objA.freeFlight && objA.hasCollided && objA.type === "weapon") {
                 //Undertaker.add(bodyA, bodyA.GetWorld());
             }
         }
-        if (objA.name === "food" && objB.name === "arrow") {
+        if (objA.type === "enemy" && objB.type === "weapon") {
             contactPoint = contact.GetManifold().m_points[0].m_localPoint;
             if (!objB.freeFlight && Math.round(contactPoint.x * 10) === 6) {
                 //weldJointDef = new b2WeldJointDef();
@@ -56,7 +56,7 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
                 //bodyB.GetWorld().CreateJoint(weldJointDef);
             }
         }
-        if (objB.name === "food" && objA.name === "arrow") {
+        if (objB.type === "enemy" && objA.type === "weapon") {
 
             contactPoint = contact.GetManifold().m_points[0].m_localPoint;
             if (!objA.freeFlight && Math.round(contactPoint.x * 10) === 6) {
@@ -66,11 +66,11 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
             }
         }
 
-        if ((objB.name === "arrow" && objA.name === "food") ||
-                (objB.name === "food" && objA.name === "arrow")) {
+        if ((objB.type === "weapon" && objA.type === "enemy") ||
+                (objB.type === "enemy" && objA.type === "weapon")) {
             var objectToDestroy = null;
             var arrow = null;
-            if (objB.name === "arrow") {
+            if (objB.type === "weapon") {
                 objectToDestroy = bodyA;
                 arrow = bodyB;
             }
@@ -86,7 +86,7 @@ ArrowContactListner.PostSolve = function(contact, oldManifold) {
             }
         }
 
-        if (objA.name === "arrow" || objB.name === "arrow") {
+        if (objA.type === "weapon" || objB.type === "weapon") {
             if (!objA.freeFlight) {
                 objA.collisionTime = new Date();
             }

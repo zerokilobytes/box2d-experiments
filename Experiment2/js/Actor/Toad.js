@@ -1,11 +1,11 @@
-var Fruit = function(context) {
+var Toad = function(context) {
     this.context = context;
     this.init();
 };
 
-Fruit.prototype = {
+Toad.prototype = {
     init: function() {
-        this.name = "food";
+        this.type = "enemy";
         this.bodyVector = new Vector2D(32, 32);
         Entity.prototype.init.call(this);
         this.scaleVector = new Vector2D(1, 1);
@@ -13,7 +13,7 @@ Fruit.prototype = {
     show: function(positionVector) {
         var scale = this.context.settings.scale;
 
-        this.skin = this.createSkin(Resource.images['apple'], positionVector, this.bodyVector);
+        this.skin = this.createSkin(Resource.images['toad'], positionVector, this.bodyVector);
         this.context.stage.addChild(this.skin.getBitmap());
     },
     spawn: function(positionVector) {

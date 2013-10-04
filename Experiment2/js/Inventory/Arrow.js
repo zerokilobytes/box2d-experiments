@@ -15,7 +15,7 @@ var Arrow = function(context) {
 
 Arrow.prototype = {
     init: function() {
-        this.name = "arrow";
+        this.type = "weapon";
         this.freeFlight = false;
         this.hasCollided = false;
 

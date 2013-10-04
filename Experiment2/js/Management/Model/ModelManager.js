@@ -78,8 +78,8 @@ ModelManager.prototype = {
         var x = MathFunc.getRandomArbitrary(74, this.context.settings.screeSize.width - 74);
         var y = MathFunc.getRandomArbitrary(80, 160) * -1;
 
-        var bird = new Fruit(this.context);
-        this.add(bird);
-        bird.spawn(new Vector2D(x, y));
+        var enemy = new Toad(this.context);
+        this.add(enemy);
+        enemy.spawn(new Vector2D(x, y));
     }
 };
