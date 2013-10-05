@@ -7,7 +7,9 @@ var GameContext = function(settings, data) {
     this.debugMode = true;
     this.mouseDown = false;
     this.modelManager = null;
+    this.intervals = 0;
     this.data = data;
+    actions:[];
     this.init();
 };
 GameContext.prototype = {
@@ -26,12 +28,13 @@ GameContext.prototype = {
 
         this.modelManager = new ModelManager(this);
         //Create world
-        this.world = new b2World(new b2Vec2(0, 1), true);
+        this.world = new b2World(new b2Vec2(0, 9.81), true);
         this.addDebug();
         this.world.SetContactListener(ArrowContactListner);
         GameLoader.load(this);
         Visual.load(this);
         Mouse.load(this);
+        EventMonitor.load(this);
     },
     start: function() {
         this.integrator = new Integrator(this);
@@ -45,6 +48,7 @@ GameContext.prototype = {
         this.integrator.update();
         this.modelManager.update();
         this.stage.update();
+        EventMonitor.exec();
     },
     createConvas: function(name, width, height) {
         var canvas = document.createElement('canvas');

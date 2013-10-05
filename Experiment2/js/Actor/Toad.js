@@ -33,6 +33,9 @@ Toad.prototype = {
         Entity.prototype.spawn.call(this);
     },
     update: function() {
+        ant_gravity = new b2Vec2(0.0, -6 * this.body.GetMass());
+        this.body.ApplyForce(ant_gravity, this.body.GetWorldCenter());
+
         //this.body.SetLinearVelocity(new b2Vec2(0, 0));
         this.body.SetFixedRotation(true);
         //this.body.ApplyForce(0, this.body.GetPosition());
