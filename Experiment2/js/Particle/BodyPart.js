@@ -11,13 +11,13 @@ BodyPart.prototype = {
         this.scaleVector = new Vector2D(1, 1);
         this.canRotate = true;
         this.creationTime = null;
-        this.ttl = 1500;
+        this.ttl = 10000;
     },
     spawn: function(positionVector) {
         this.enabled = true;
         var scale = this.context.settings.scale;
 
-        this.skin = this.createSkin(Resource.images['part01'], positionVector, this.bodyVector);
+        this.skin = this.createSkin(Resource.get('part01'), positionVector, this.bodyVector);
         this.body = this.createEntityBody(positionVector, scale);
         this.context.stage.addChild(this.skin.getBitmap());
         this.creationTime = new Date();

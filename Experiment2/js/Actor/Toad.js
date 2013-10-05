@@ -14,14 +14,14 @@ Toad.prototype = {
     show: function(positionVector) {
         var scale = this.context.settings.scale;
 
-        this.skin = this.createSkin(Resource.images['frog'], positionVector, this.bodyVector);
+        this.skin = this.createSkin(Resource.get('frog'), positionVector, this.bodyVector);
         this.context.stage.addChild(this.skin.getBitmap());
     },
     spawn: function(positionVector) {
         this.enabled = true;
         var scale = this.context.settings.scale;
 
-        this.skin = this.createSkin(Resource.images['frog'], positionVector, this.bodyVector);
+        this.skin = this.createSkin(Resource.get('frog'), positionVector, this.bodyVector);
         this.body = this.createEntityBody(positionVector, scale).body;
 
         //this.body.SetLinearVelocity(new b2Vec2(0, 0));
@@ -52,7 +52,7 @@ Toad.prototype = {
         return Entity.prototype.createEntityBody.call(this, postion, scale);
     },
     destroy: function() {
-         this.context.smokeDisplay(this.getAbsolutePosition());
+        Visual.Effects.displayToadExplosion(this.getAbsolutePosition());
         Entity.prototype.destroy.call(this);
 
         for (var i = 0; i < 4; i++) {
@@ -65,7 +65,7 @@ Toad.prototype = {
             piece.spawn(new Vector2D(pos.x + radX, pos.y + radY));
             this.context.modelManager.add(piece);
         }
-       
+
     },
     removeSkin: function() {
         Entity.prototype.removeSkin.call(this);

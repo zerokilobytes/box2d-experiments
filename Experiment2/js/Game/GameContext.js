@@ -30,6 +30,8 @@ GameContext.prototype = {
         this.addDebug();
         this.world.SetContactListener(ArrowContactListner);
         GameLoader.load(this);
+        Visual.load(this);
+        Mouse.load(this);
     },
     start: function() {
         this.integrator = new Integrator(this);

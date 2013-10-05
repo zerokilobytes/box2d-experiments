@@ -33,7 +33,7 @@ Bow.prototype = {
 
 
         this.skin = this.createSkin(
-                Resource.images['nav'],
+                Resource.get('nav'),
                 new Vector2D(data.x, data.y),
                 new Vector2D(this.bodyVector.x / 2, this.bodyVector.y / 2));
 
