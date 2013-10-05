@@ -1,14 +1,45 @@
 var gameContext;
+var loader;
 var numEnterPoints = 0;
-var images = {
-    bow: 'images/Fixture/bow.png',
-    arrow: 'images/Fixture/arrow.png',
-    frog: 'images/Actor/frog.png',
-    nav: 'images/Fixture/nav.png',
-    part01: 'images/Fixture/part01.png'
-};
 function initVisual() {
-    spriteSheet = {"images": ["images/smoke.png"], "animations": {"jump": [10, 19], "boom": [0, 9]}, "frames": {"height": 94, "regX": 0, "count": 20, "regY": 0, "width": 96}};
+    // Preload JS Manifest			
+    manifest = [
+        {src: "images/smoke.png", id: "smoke"},
+        {src: "images/Fixture/bow.png", id: "bow"},
+        {src: "images/Fixture/arrow.png", id: "arrow"},
+        {src: "images/Actor/frog.png", id: "frog"},
+        {src: "images/Fixture/nav.png", id: "nav"},
+        {src: "images/Fixture/part01.png", id: "part01"}
+    ];
+
+    Resource.load(manifest, handleComplete, handleFileLoad);
+
+}
+
+function handleFileLoad() {
+
+}
+function handleComplete() {
+
+    settings = new Settings({
+        scale: 60,
+        screeSize: {
+            width: 600,
+            height: 768
+        }
+    });
+
+    gameContext = new GameContext(settings, test1);
+    gameContext.start();
+
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.useRAF = true;
+    createjs.Ticker.addListener(function(dt, paused) {
+        gameContext.update();
+    });
+
+
+    spriteSheet = {"images": [Resource.loader.getResult("smoke")], "animations": {"jump": [10, 19], "boom": [0, 9]}, "frames": {"height": 94, "regX": 0, "count": 20, "regY": 0, "width": 96}};
 
     // Spritesheet creation
     var ss = new createjs.SpriteSheet(spriteSheet);
@@ -16,18 +47,6 @@ function initVisual() {
     // BitmaAnimation 
     smoke = new createjs.BitmapAnimation(ss);
 
-    // Preload JS Manifest			
-    manifest = [
-        {src: "images/smoke.png", id: "smoke"}
-    ];
-
-    // PreloadJS init
-    loader = new PreloadJS();
-    loader.onComplete = handleComplete;
-    loader.loadManifest(manifest);
-}
-
-function handleComplete() {
     // MouseDown event listener
     gameContext.smokeDisplay = smokeDisplay;
 }
@@ -56,29 +75,14 @@ function smokeDisplay(e) {
 
 function init() {
     ResourceLoader.loadImages(images, function() {
-        settings = new Settings({
-            scale: 60,
-            screeSize: {
-                width: 600,
-                height: 768
-            }
-        });
 
-        gameContext = new GameContext(settings, test1);
-        gameContext.start();
-
-        createjs.Ticker.setFPS(60);
-        createjs.Ticker.useRAF = true;
-        createjs.Ticker.addListener(function(dt, paused) {
-            gameContext.update();
-        });
-         initVisual();
+        //initVisual();
     });
 }
 
 $(document).ready(function() {
-   
-    init();
+
+    initVisual();
 
     $('#debug').on('click', function() {
         gameContext.toggleDebug();

@@ -14,14 +14,14 @@ Toad.prototype = {
     show: function(positionVector) {
         var scale = this.context.settings.scale;
 
-        this.skin = this.createSkin(Resource.images['frog'], positionVector, this.bodyVector);
+        this.skin = this.createSkin(Resource.get('frog'), positionVector, this.bodyVector);
         this.context.stage.addChild(this.skin.getBitmap());
     },
     spawn: function(positionVector) {
         this.enabled = true;
         var scale = this.context.settings.scale;
 
-        this.skin = this.createSkin(Resource.images['frog'], positionVector, this.bodyVector);
+        this.skin = this.createSkin(Resource.get('frog'), positionVector, this.bodyVector);
         this.body = this.createEntityBody(positionVector, scale).body;
 
         //this.body.SetLinearVelocity(new b2Vec2(0, 0));

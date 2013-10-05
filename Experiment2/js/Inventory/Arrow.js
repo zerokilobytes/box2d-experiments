@@ -56,12 +56,12 @@ Arrow.prototype = {
 
         this.body = body;
 
-        this.skin = this.createSkin(Resource.images['arrow'], bowPosition);
+        this.skin = this.createSkin(Resource.get('arrow'), bowPosition);
         this.context.stage.addChild(this.skin.getBitmap());
         this.enabled = true;
     },
     show: function(position) {
-        this.skin = this.createSkin(Resource.images['arrow'], position);
+        this.skin = this.createSkin(Resource.get('arrow'), position);
         this.context.stage.addChild(this.skin.getBitmap());
         this.enabled = true;
     },
