@@ -5,23 +5,18 @@ function init() {
 }
 function handleComplete() {
 
-    settings = new Settings({
-        scale: 60,
-        screeSize: {
-            width: 600,
-            height: 768
-        }
-    });
+    settings = new Settings(Global.gameSettings);
 
     gameContext = new GameContext(settings, test1);
     gameContext.start();
 
-    createjs.Ticker.setFPS(GameConstant.FPS);
+    createjs.Ticker.setFPS(Global.FPS);
     createjs.Ticker.useRAF = true;
     createjs.Ticker.addListener(function() {
         gameContext.update();
     });
-};
+}
+;
 
 $(document).ready(function() {
     init();

@@ -33,8 +33,8 @@ Toad.prototype = {
         Entity.prototype.spawn.call(this);
     },
     update: function() {
-        ant_gravity = new b2Vec2(0.0, -6 * this.body.GetMass());
-        this.body.ApplyForce(ant_gravity, this.body.GetWorldCenter());
+        antiGravity = new b2Vec2(Global.toad.gravity.x, Global.toad.gravity.y * this.body.GetMass());
+        this.body.ApplyForce(antiGravity, this.body.GetWorldCenter());
 
         //this.body.SetLinearVelocity(new b2Vec2(0, 0));
         this.body.SetFixedRotation(true);
@@ -58,10 +58,10 @@ Toad.prototype = {
         Visual.Effects.displayToadExplosion(this.getAbsolutePosition());
         Entity.prototype.destroy.call(this);
 
-        for (var i = 0; i < 4; i++) {
+        for (var i = 1; i <= 3; i++) {
             var a = MathFunc.getRandomArbitrary(1, 360) * Math.PI / 180;
             var pos = this.getAbsolutePosition();
-            var rad = 150;
+            var rad = 30;
             var radX = rad * Math.cos(a);
             var radY = rad * Math.sin(a);
             var piece = new BodyPart(this.context);

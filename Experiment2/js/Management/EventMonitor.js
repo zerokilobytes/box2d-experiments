@@ -20,6 +20,6 @@ EventMonitor.exec = function() {
             console.log(action.event);
         }
     }
-    EventMonitor.context.intervals += 1000/(GameConstant.FPS);
+    EventMonitor.context.intervals += 1000/(Global.FPS);
 };
 EventMonitor.context = null;
