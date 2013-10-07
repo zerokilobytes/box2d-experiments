@@ -30,8 +30,6 @@ Bow.prototype = {
         this.rotation = data.rotation;
         this.context.stage.update();
 
-
-
         this.skin = this.createSkin(
                 Resource.get('nav'),
                 new Vector2D(data.x, data.y),
@@ -45,24 +43,6 @@ Bow.prototype = {
         this.arrowHead.y = this.bowCenter.y - Math.sin(0 + MathFunc.toRadiant(90)) * radius;
 
         var _this = this;
-
-        /*
-         this.skin.getBitmap().onMouseOver = function(e) {
-         document.body.style.cursor = 'pointer';
-         };
-         this.skin.getBitmap().onPress = function(e) {
-         document.body.style.cursor = 'move';
-         };
-         this.skin.getBitmap().onMouseOut = function(e) {
-         document.body.style.cursor = 'default';
-         };
-         
-         this.skin.getBitmap().addEventListener("mousedown", function(event) {
-         _this.skin.getBitmap().rotation = _this.lastRotation;
-         _this.active = true;
-         });
-         */
-
 
         this.context.stage.addEventListener("stagemousedown", function(event) {
             _this.skin.getBitmap().rotation = _this.lastRotation;

@@ -6,5 +6,6 @@ manifest = [
     {src: "images/Fixture/nav.png", id: "nav"},
     {src: "images/Fixture/part01.png", id: "part01"},
     {src: "images/Fixture/part02.png", id: "part02"},
-    {src: "images/Fixture/part03.png", id: "part03"}
+    {src: "images/Fixture/part03.png", id: "part03"},
+    {src: "images/Fixture/bubble.png", id: "bubble"}
 ];
