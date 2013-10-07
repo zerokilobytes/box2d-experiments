@@ -86,21 +86,26 @@ Bow.prototype = {
         return this.bowCenter;
     },
     update: function() {
+        var fireRate = this.context.modelManager.fireRate;
         var currentTime = new Date();
         var diff = currentTime.getTime() - this.lastTime.getTime();
-        if (diff >= this.fireRate) {
+        if (diff >= fireRate) {
             this.lastTime = currentTime;
             this.fire();
 
         }
     },
     fire: function() {
+
         if (this.active) {
-            this.context.addArrow(new Vector2D(this.arrowHead.x, this.arrowHead.y), this.getPosition());
+            var space = 10;
+            var arrowCount = Global.arrow.count;
+            for (i = 0; i < arrowCount; i++) {
+                this.context.addArrow(new Vector2D(this.arrowHead.x + i * space, this.arrowHead.y), this.getPosition());
+            }
         }
     },
     updatePosition: function(position) {
-
         var radius = this.bodyVector.x / 2;
         var angleRadian = Math.atan2(position.y - this.bowCenter.y, position.x - this.bowCenter.x);
         var angle = angleRadian * 180 / Math.PI; //MathFunc.normalizeAngle((angleRadian * 180 / Math.PI));

@@ -51,7 +51,7 @@ Arrow.prototype = {
         body.CreateFixture(fixtureDef);
 
         //velocity must be applied in the opposite direction
-        body.SetLinearVelocity(new b2Vec2(50 * Math.cos(angle), 50 * Math.sin(angle)));
+        body.SetLinearVelocity(new b2Vec2(Global.arrow.velocity.x * Math.cos(angle), Global.arrow.velocity.y * Math.sin(angle)));
         body.SetAngle(angle);
 
         this.body = body;

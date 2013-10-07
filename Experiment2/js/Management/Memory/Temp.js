@@ -14,5 +14,6 @@ Temp.set = function(key, value) {
 Temp.get = function(key) {
     var value = Temp.Memory[key];
     Temp.Memory[key] = null;
+    delete Temp.Memory[key];
     return value;
 };

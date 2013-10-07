@@ -9,25 +9,46 @@ test1 = {
     actors: [],
     actions: [
         {
+            //Begin change
             intervals: 8000,
             event: function() {
                 Temp.set('spawnRate', this.modelManager.spawnRate);
                 Temp.set('toad.gravity', Global.toad.gravity.y);
+                Temp.set('fireRate', this.modelManager.fireRate);
+                Temp.set('arrow.velocity', Global.arrow.velocity);
+                Temp.set('arrow.count', Global.arrow.count);
 
-                this.modelManager.spawnRate = 30;
-                Global.toad.gravity.y = -9.82;
-                //this.world.SetGravity(new b2Vec2(0.0, 0.0));
+                this.modelManager.spawnRate = 60;
+                Global.toad.gravity.y = -8.82;
+            }
+        },
+        {
+            //Increase fire rate and speed
+            intervals: 11000,
+            event: function() {
+                this.modelManager.fireRate = 80;
+                Global.arrow.count = 4;
+            }
+        },
+        {
+            //Reset spawnRate
+            intervals: 16000,
+            event: function() {
+                this.modelManager.spawnRate = Temp.get('spawnRate');
+                Global.toad.gravity.y = Temp.get('toad.gravity');
             }
 
         },
         {
-            intervals: 12000,
+            //Reset all
+            intervals: 20000,
             event: function() {
-                this.modelManager.spawnRate = Temp.get('spawnRate');
-                Global.toad.gravity.y = Temp.get('toad.gravity');
-                //this.world.SetGravity(new b2Vec2(0.0, 0.0));
+                this.modelManager.fireRate = Temp.get('fireRate');
+                Global.arrow.velocity = Temp.get('arrow.velocity');
+                Global.arrow.count = Temp.get('arrow.count');
             }
 
         }
     ]
 };
+////this.world.SetGravity(new b2Vec2(0.0, 0.0));

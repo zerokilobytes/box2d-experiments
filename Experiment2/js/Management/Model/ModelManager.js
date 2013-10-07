@@ -3,13 +3,16 @@ var ModelManager = function(context) {
     this.arrowVector = [];
     this.models = [];
     this.lastTime = null;
-    this.spawnRate = 400;
+    this.spawnRate = 0;
+    this.fireRate = 0;
     this.init();
 };
 
 ModelManager.prototype = {
     init: function() {
         this.lastTime = new Date();
+        this.spawnRate = Global.model.spawnRate;
+        this.fireRate = Global.model.fireRate;
     },
     update: function() {
         this.updateArrow();

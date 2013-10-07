@@ -14,6 +14,19 @@ Global.gameSettings = {
     }
 };
 
+Global.model = {
+    spawnRate: 400,
+    fireRate: 300
+};
+
+Global.arrow = {
+    count: 1,
+    velocity: {
+        x: 50,
+        y: 50
+    }
+}
+
 Global.toad = {
     gravity: {
         x: 0,
