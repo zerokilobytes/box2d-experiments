@@ -4,18 +4,19 @@ var GameContext = function(settings, data) {
     this.positionIterations = 10;
     this.settings = settings;
     this.integrator = null;
-    this.debugMode = true;
+    this.debugMode = false;
     this.mouseDown = false;
     this.modelManager = null;
     this.intervals = 0;
     this.data = data;
+    this.playing = false;
     actions:[];
     this.init();
 };
 GameContext.prototype = {
     init: function() {
-        this.debugCanvas = this.createConvas('$debugCanvas', this.settings.screeSize.width, this.settings.screeSize.height);
-        this.gameCanvas = this.createConvas('$gameCanvas', this.settings.screeSize.width, this.settings.screeSize.height);
+        this.debugCanvas = this.createConvas('debugCanvas', this.settings.screeSize.width, this.settings.screeSize.height);
+        this.gameCanvas = this.createConvas('gameCanvas', this.settings.screeSize.width, this.settings.screeSize.height);
         this.debugCanvas.style.display = this.debugMode ? '' : 'none';
         //Get Context
         context = this.gameCanvas.getContext('2d');
@@ -37,27 +38,29 @@ GameContext.prototype = {
         EventMonitor.load(this);
     },
     start: function() {
+        this.playing = true;
         this.integrator = new Integrator(this);
         this.integrator.setup();
     },
     update: function() {
-        this.world.Step(this.timeStep, this.velocityIterations, this.positionIterations);
-        this.world.ClearForces();
-        this.world.m_debugDraw.m_sprite.graphics.clear();
-        this.world.DrawDebugData();
-        this.integrator.update();
-        this.modelManager.update();
-        this.stage.update();
-        EventMonitor.exec();
+        if (this.playing) {
+            this.world.Step(this.timeStep, this.velocityIterations, this.positionIterations);
+            this.world.ClearForces();
+            this.world.m_debugDraw.m_sprite.graphics.clear();
+            this.world.DrawDebugData();
+            this.integrator.update();
+            this.modelManager.update();
+            this.stage.update();
+            EventMonitor.exec();
+        }
     },
     createConvas: function(name, width, height) {
         var canvas = document.createElement('canvas');
         canvas.id = name;
         canvas.width = width;
         canvas.height = height;
-        canvas.style.position = "absolute";
         canvas.style.border = "1px solid";
-        var element = document.getElementById("game");
+        var element = document.getElementById("canvasContainer");
         element.appendChild(canvas);
         return document.getElementById(name);
     },
@@ -69,6 +72,9 @@ GameContext.prototype = {
     toggleDebug: function() {
         this.debugMode = !this.debugMode;
         this.debugCanvas.style.display = this.debugMode ? '' : 'none';
+    },
+    togglePlay: function() {
+        this.playing = !this.playing;
     },
     addDebug: function() {
         var debugDraw = new b2DebugDraw();

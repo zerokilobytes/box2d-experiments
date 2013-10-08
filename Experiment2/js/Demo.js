@@ -20,7 +20,8 @@ function handleComplete() {
 
 $(document).ready(function() {
     init();
-    $('#debug').on('click', function() {
-        gameContext.toggleDebug();
+    $('#pauseButton').on('click', function() {
+        //gameContext.toggleDebug();
+        gameContext.togglePlay();
     });
 });
