@@ -2,7 +2,7 @@ var Resource = function() {
     throw new Error("Resource object cannot be instantiated");
 };
 
-Resource.loader = new createjs.LoadQueue(false);
+Resource.loader = new createjs.LoadQueue(true);
 
 Resource.prototype = {
 };
