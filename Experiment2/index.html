@@ -8,13 +8,13 @@
     </head>
     <body>
         <div id="mainDiv">
-             <button type="button" id="pauseButton" class="pause-button">Pause</button>
+            <button type="button" id="pauseButton" class="pause-button">Pause</button>
             <div id="canvasContainer"></div>
             <div id="controlContainer" style="">
-                <div class="control-input">density <input id="density-input" type="range" name="density" min="0" max="100" value="100"></div>
-                <div class="control-input">friction <input id="friction-input" type="range" name="friction" min="0" max="100" value="50"></div>
-                <div class="control-input">restitution <input id="restitution-input" type="range" name="restitution" min="0" max="100" value="30"></div>
-                <div class="control-input">Debug <input name="debug" value="your_value" type="checkbox"></div>
+                <div class="control-input">Gravity <input id="gravity" type="range" name="gravity" min="-1000" max="1000" value="981"></div>
+                <div class="control-input">friction <input id="friction" type="range" name="friction" min="0" max="100" value="50"></div>
+                <div class="control-input">restitution <input id="restitution" type="range" name="restitution" min="0" max="100" value="30"></div>
+                <div class="control-input">Debug <input name="debug" id="debug"  type="checkbox"></div>
             </div>
         </div>
         <!--Libraries -->

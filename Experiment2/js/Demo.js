@@ -24,4 +24,13 @@ $(document).ready(function() {
         //gameContext.toggleDebug();
         gameContext.togglePlay();
     });
+
+    $("#debug").change(function() {
+        gameContext.toggleDebug(this.checked);
+    });
+
+    $("#gravity").change(function() {
+        Global.world.gravity.y = $(this).val() / 100;
+        gameContext.refreshSettings();
+    });
 });

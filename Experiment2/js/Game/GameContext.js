@@ -29,13 +29,16 @@ GameContext.prototype = {
 
         this.modelManager = new ModelManager(this);
         //Create world
-        this.world = new b2World(new b2Vec2(0, 9.81), true);
+        this.world = new b2World(new b2Vec2(Global.world.gravity.x, Global.world.gravity.y), true);
         this.addDebug();
         this.world.SetContactListener(ArrowContactListner);
         GameLoader.load(this);
         Visual.load(this);
         Mouse.load(this);
         EventMonitor.load(this);
+    },
+    isPlaying: function() {
+        return this.playing;
     },
     start: function() {
         this.playing = true;
@@ -69,9 +72,14 @@ GameContext.prototype = {
         var positionVector = new Vector2D(Math.round(Math.random() * this.settings.screeSize.width), 50);
         entity.spawn(this, positionVector);
     },
-    toggleDebug: function() {
-        this.debugMode = !this.debugMode;
-        this.debugCanvas.style.display = this.debugMode ? '' : 'none';
+    toggleDebug: function(checked) {
+        if (checked !== undefined) {
+            this.debugMode = checked;
+            this.debugCanvas.style.display = this.debugMode ? '' : 'none';
+        } else {
+            this.debugMode = !this.debugMode;
+            this.debugCanvas.style.display = this.debugMode ? '' : 'none';
+        }
     },
     togglePlay: function() {
         this.playing = !this.playing;
@@ -89,5 +97,8 @@ GameContext.prototype = {
         var arrow = new Arrow(this);
         arrow.spawn(mousePosition, bowPosition);
         this.modelManager.arrowVector.push(arrow);
+    },
+    refreshSettings: function() {
+        this.world.SetGravity(new b2Vec2(Global.world.gravity.x, Global.world.gravity.y));
     }
 };

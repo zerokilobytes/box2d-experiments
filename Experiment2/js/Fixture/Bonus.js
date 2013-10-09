@@ -25,9 +25,11 @@ Bonus.prototype = {
         var _this = this;
 
         this.skin.getBitmap().onMouseOver = function(event) {
-            _this.onAcquire.call(_this, event);
-            _this.enabled = false;
-            _this.removeSkin();
+            if (_this.context.isPlaying()) {
+                _this.onAcquire.call(_this, event);
+                _this.enabled = false;
+                _this.removeSkin();
+            }
         };
         this.skin.getBitmap().onPress = function(event) {
 

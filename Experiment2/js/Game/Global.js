@@ -1,5 +1,5 @@
 var Global = function() {
-
+    throw Error("Cannot instantiate Global");
 };
 
 Global.prototype = {
@@ -14,6 +14,13 @@ Global.gameSettings = {
     }
 };
 
+Global.world = {
+    gravity: {
+        x: 0,
+        y: 9.81
+    }
+};
+
 Global.model = {
     spawnRate: 400,
     fireRate: 300
@@ -25,7 +32,7 @@ Global.arrow = {
         x: 50,
         y: 50
     }
-}
+};
 
 Global.toad = {
     gravity: {
