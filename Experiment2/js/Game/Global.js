@@ -10,7 +10,7 @@ Global.gameSettings = {
     scale: 60,
     screeSize: {
         width: 600,
-        height: 768
+        height: 600
     }
 };
 

@@ -82,7 +82,7 @@ ModelManager.prototype = {
         }
     },
     addEnemy: function() {
-        var x = MathFunc.getRandomArbitrary(74, this.context.settings.screeSize.width - 74);
+        var x = MathFunc.getRandomArbitrary(100, this.context.settings.screeSize.width - 100);
         var y = MathFunc.getRandomArbitrary(80, 160) * -1;
 
         var enemy = new Toad(this.context);

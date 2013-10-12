@@ -1,9 +1,11 @@
 test1 = {
     name: "Test 1",
+    lives: 5,
+    durtations: 60000,
     fixtures: [
         {
             type: Bow,
-            data: {x: 240, y: 800, rotation: 0}
+            data: {x: 300, y: 600, rotation: 0}
         }
     ],
     actors: [],

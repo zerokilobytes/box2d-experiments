@@ -20,6 +20,7 @@ html,body{ margin:0; padding:0; width: 100%;}
 #debugCanvas{  vertical-align: bottom;}
 
 #gameCanvas, #debugCanvas {
+    border: 0px;
     position: absolute;
     top: 0;
     left: 0;
@@ -58,7 +59,7 @@ html,body{ margin:0; padding:0; width: 100%;}
     margin-left: 600px;
     overflow: hidden;
     padding: 40px 20px 0px 20px;
-    height:728px;
+    height:560px;
     background-color: #1d1e1f;
     position: absolute;
     color: #b4b4b4;

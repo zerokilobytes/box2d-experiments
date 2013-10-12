@@ -62,7 +62,7 @@ GameContext.prototype = {
         canvas.id = name;
         canvas.width = width;
         canvas.height = height;
-        canvas.style.border = "1px solid";
+        canvas.style.border = "0px";
         var element = document.getElementById("canvasContainer");
         element.appendChild(canvas);
         return document.getElementById(name);
