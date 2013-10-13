@@ -4,11 +4,11 @@
 .mouseDown{
     cursor: url(../images/pointer.png), auto;
 }
-/*
-canvas{
+
+canvas#gameCanvas{
     background-image:url('../b.jpg')
 }
-*/
+
 
 
 *{ font-family: helvetica, arial;}

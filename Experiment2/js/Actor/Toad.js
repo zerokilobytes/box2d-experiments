@@ -77,8 +77,6 @@ Toad.prototype = {
         return this.body.GetPosition();
     },
     getAbsolutePosition: function() {
-        var scale = this.context.settings.scale;
-        var box2dVec = this.body.GetPosition();
-        return new Vector2D(box2dVec.x * scale, box2dVec.y * scale);
+        return Entity.prototype.getAbsolutePosition.call(this);
     }
 };

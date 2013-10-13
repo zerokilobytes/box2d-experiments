@@ -29,7 +29,7 @@ Integrator.prototype = {
         this.wall((floorHeight / 2), this.settings.screeSize.height / 2, floorHeight, this.settings.screeSize.height + extraHeight);
 
         //top
-        this.wall(this.settings.screeSize.width / 2, (floorHeight / 2) - extraHeight, this.settings.screeSize.width, floorHeight);
+        this.wall(this.settings.screeSize.width / 2, (floorHeight / 2) - extraHeight, this.settings.screeSize.width, floorHeight + floorHeight);
     },
     wall: function(pX, pY, w, h) {
         var worldScale = this.settings.scale;

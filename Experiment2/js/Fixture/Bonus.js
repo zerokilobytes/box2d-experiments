@@ -17,7 +17,7 @@ Bonus.prototype = {
     },
     spawn: function(data) {
         this.skin = this.createSkin(
-                Resource.get('bubble'),
+                Resource.get('arrow_bonus'),
                 new Vector2D(data.position.x, data.position.y),
                 new Vector2D(this.bodyVector.x / 2, this.bodyVector.y / 2));
         this.context.stage.addChild(this.skin.getBitmap());

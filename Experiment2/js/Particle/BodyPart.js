@@ -77,5 +77,8 @@ BodyPart.prototype = {
     },
     getPosition: function() {
         return this.body.GetPosition();
+    },
+    getAbsolutePosition: function() {
+        return Entity.prototype.getAbsolutePosition.call(this);
     }
 };

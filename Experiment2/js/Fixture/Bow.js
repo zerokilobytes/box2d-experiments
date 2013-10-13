@@ -14,8 +14,8 @@ Bow.prototype = {
     init: function() {
         this.type = "fixture";
         this.bowCenter = null;
-        this.bodyVector = new Vector2D(187, 183);
-        this.scaleVector = new Vector2D(1, 1);
+        this.bodyVector = new Vector2D(281, 236);
+        this.scaleVector = new Vector2D(.75, .75);
         Guid.prototype.set.call(this);
     },
     spawn: function(data) {
@@ -86,7 +86,7 @@ Bow.prototype = {
         }
     },
     updatePosition: function(position) {
-        var radius = this.bodyVector.x / 2;
+        var radius = 70;
         var angleRadian = Math.atan2(position.y - this.bowCenter.y, position.x - this.bowCenter.x);
         var angle = angleRadian * 180 / Math.PI; //MathFunc.normalizeAngle((angleRadian * 180 / Math.PI));
         this.skin.getBitmap().rotation = angle + 90;
