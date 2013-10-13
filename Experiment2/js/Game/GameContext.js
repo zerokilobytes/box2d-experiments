@@ -1,4 +1,4 @@
-var GameContext = function(settings, data) {
+var GameContext = function(settings, level) {
     this.timeStep = 1 / 60;
     this.velocityIterations = 10;
     this.positionIterations = 10;
@@ -8,9 +8,10 @@ var GameContext = function(settings, data) {
     this.mouseDown = false;
     this.modelManager = null;
     this.intervals = 0;
-    this.data = data;
+    this.level = level;
     this.playing = false;
     actions:[];
+    this.lifes = 1;
     this.init();
 };
 GameContext.prototype = {
@@ -32,7 +33,7 @@ GameContext.prototype = {
         this.world = new b2World(new b2Vec2(Global.world.gravity.x, Global.world.gravity.y), true);
         this.addDebug();
         this.world.SetContactListener(ArrowContactListner);
-        GameLoader.load(this);
+        GameLoader.load(this, this.level);
         Visual.load(this);
         Mouse.load(this);
         EventMonitor.load(this);
@@ -100,5 +101,15 @@ GameContext.prototype = {
     },
     refreshSettings: function() {
         this.world.SetGravity(new b2Vec2(Global.world.gravity.x, Global.world.gravity.y));
+    },
+    removeLife: function(actor) {
+        console.log(actor);
+        if (this.lifes > 0) {
+            this.lifes--;
+        }
+        if (this.lifes < 1) {
+            this.playing = false;
+            alert("Game Over");
+        }
     }
 };

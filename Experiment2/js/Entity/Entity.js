@@ -23,11 +23,12 @@ Entity.prototype = {
         this.skin.getBitmap().y = this.body.GetWorldCenter().y * scale;
 
         if (this.type === "enemy") {
-            if (this.getAbsolutePosition().y > height
-                    || this.getAbsolutePosition().x < (-1 * this.bodyVector / 3)
-                    || this.getAbsolutePosition().x > width + (this.bodyVector / 3))
+            if (this.getAbsolutePosition().x < -10
+                    || this.getAbsolutePosition().x > width + 10)
             {
-
+                this.destroy();
+            } else if (this.getAbsolutePosition().y > height) {
+                this.context.removeLife(this.getAbsolutePosition());
                 this.destroy();
             }
         }
