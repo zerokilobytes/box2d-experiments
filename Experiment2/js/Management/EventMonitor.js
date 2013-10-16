@@ -16,5 +16,9 @@ EventMonitor.exec = function() {
         }
     }
     EventMonitor.context.intervals += (1000 / Global.FPS);
+    
+    if(EventMonitor.context.intervals >= EventMonitor.context.durtations){
+        EventMonitor.context.success();
+    }
 };
 EventMonitor.context = null;

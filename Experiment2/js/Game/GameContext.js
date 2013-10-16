@@ -8,6 +8,7 @@ var GameContext = function(settings, level) {
     this.mouseDown = false;
     this.modelManager = null;
     this.intervals = 0;
+    this.durtations = 0;
     this.level = level;
     this.playing = false;
     actions:[];
@@ -111,5 +112,9 @@ GameContext.prototype = {
             this.playing = false;
             alert("Game Over");
         }
+    },
+    success: function() {
+        this.playing = false;
+        alert("You Won. Thanks for playing");
     }
 };

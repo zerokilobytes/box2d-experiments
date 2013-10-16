@@ -7,6 +7,8 @@ GameLoader.prototype = {
 
 GameLoader.load = function(context, level) {
     context.lifes = level.lives;
+    context.durtations = level.durtations;
+
     for (var i = 0; i < level.fixtures.length; i++) {
         var fixture = new level.fixtures[i].type(context);
         fixture.spawn(level.fixtures[i].data);

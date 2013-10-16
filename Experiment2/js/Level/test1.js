@@ -1,7 +1,7 @@
 test1 = {
     name: "Test 1",
     lives: 5,
-    durtations: 60000,
+    durtations: 30000,
     fixtures: [
         {
             type: Bow,
