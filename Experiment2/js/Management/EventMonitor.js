@@ -4,7 +4,7 @@ var EventMonitor = function() {
 
 EventMonitor.prototype = {
 };
-EventMonitor.load = function(context) {
+EventMonitor.register = function(context) {
     EventMonitor.context = context;
 }
 EventMonitor.exec = function() {

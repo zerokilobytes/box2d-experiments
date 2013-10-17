@@ -7,7 +7,7 @@ Visual.prototype = {
 
 Visual.context = null;
 
-Visual.load = function(context) {
+Visual.register = function(context) {
     Visual.context = context;
     Visual.Effects.loadToadExplosion();
 };
@@ -42,6 +42,6 @@ Visual.Effects.displayToadExplosion = function(e) {
 
     // Remove smoke when animation ends
     Visual.Effects.toadExplosion.onAnimationEnd = function() {
-        gameContext.stage.removeChild(Visual.Effects.toadExplosion);
+        Visual.context.stage.removeChild(Visual.Effects.toadExplosion);
     };
 };

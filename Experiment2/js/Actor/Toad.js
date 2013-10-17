@@ -56,6 +56,7 @@ Toad.prototype = {
     },
     destroy: function() {
         Visual.Effects.displayToadExplosion(this.getAbsolutePosition());
+        Sound.play(Sound.EXPLODE);
         Entity.prototype.destroy.call(this);
 
         for (var i = 1; i <= 3; i++) {

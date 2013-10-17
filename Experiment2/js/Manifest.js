@@ -7,5 +7,6 @@ manifest = [
     {src: "images/Fixture/part01.png", id: "part01"},
     {src: "images/Fixture/part02.png", id: "part02"},
     {src: "images/Fixture/part03.png", id: "part03"},
-    {src: "images/Fixture/arrow_bonus.png", id: "arrow_bonus"}
+    {src: "images/Fixture/arrow_bonus.png", id: "arrow_bonus"},
+    {src: "sounds/break.mp3", id: "explode"}
 ];

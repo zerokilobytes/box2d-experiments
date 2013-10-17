@@ -35,9 +35,11 @@ GameContext.prototype = {
         this.addDebug();
         this.world.SetContactListener(ArrowContactListner);
         GameLoader.load(this, this.level);
-        Visual.load(this);
-        Mouse.load(this);
-        EventMonitor.load(this);
+        
+        Visual.register(this);
+        Sound.register(this);
+        Mouse.register(this);
+        EventMonitor.register(this);
     },
     isPlaying: function() {
         return this.playing;
@@ -104,7 +106,6 @@ GameContext.prototype = {
         this.world.SetGravity(new b2Vec2(Global.world.gravity.x, Global.world.gravity.y));
     },
     removeLife: function(actor) {
-        console.log(actor);
         if (this.lifes > 0) {
             this.lifes--;
         }
