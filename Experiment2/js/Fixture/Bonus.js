@@ -25,14 +25,10 @@ Bonus.prototype = {
         var _this = this;
 
         this.skin.getBitmap().onMouseOver = function(event) {
-            if (_this.context.isPlaying()) {
-                _this.onAcquire.call(_this, event);
-                _this.enabled = false;
-                _this.removeSkin();
-            }
+           
         };
         this.skin.getBitmap().onPress = function(event) {
-
+			 _this.takeAction();
         };
         this.skin.getBitmap().onMouseOut = function(event) {
 
@@ -41,8 +37,14 @@ Bonus.prototype = {
         this.skin.getBitmap().addEventListener("mousedown", function(event) {
 
         });
-
     },
+	takeAction:function(){
+		if (this.context.isPlaying()) {
+                this.onAcquire.call(this, event);
+                this.enabled = false;
+                this.removeSkin();
+            }
+	},
     update: function() {
         this.updatePosition();
     },

@@ -35,7 +35,7 @@ test1 = {
 
                 bonus.onAcquire = function(event) {
                     _this.modelManager.fireRate = 80;
-                    Global.arrow.count = 4;
+                    Global.arrow.count = 2;
                 };
             }
         },
